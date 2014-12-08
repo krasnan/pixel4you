@@ -1,0 +1,114 @@
+.container{
+	width: 100%;
+
+}
+header{
+	border-bottom-width: 25px;
+}
+
+.logo img{
+	left: 2%;
+	bottom: -28px;
+	height: 40px;
+}
+#hamburger_icon{
+	display: inline-block;
+	padding-right: 20px;
+	cursor: pointer;
+}
+.header:hover > #dropdown_top{
+
+	top: -80%;
+	opacity: 0;
+}
+
+#dropdown_top{
+	width: 100%;
+	margin-left: -50%;
+	height: 80%;
+	top: -80%;
+	overflow: auto;
+	opacity: 0;
+
+}
+.hr{
+	display: block;
+	float: left;
+	width:100%;
+	height:1px; 
+	background: #00baff;
+}
+
+.search{
+
+	width: 100%;
+
+}
+.filter{
+
+	width: 100%;
+
+
+}
+.login{
+
+	width: 100%;
+}
+.subcategory{
+	width: 100%;
+}
+
+.user_info_container{
+	margin-top: 10px;
+	width: 100%;
+	
+}
+.user_content_container{
+	width: 100%;
+}
+
+.section{
+	margin-bottom: 550px;
+}
+
+.image-container{
+	width: 80%;
+	margin: 20px 10% 0 10%;
+}
+
+footer{
+	height: 500px;
+	overflow: hidden;
+}
+#footer-about{
+	display: none;
+
+}
+#footer-contact{
+	width: 100%;
+	text-align: center;
+}
+#footer-follow {
+	width: 100%;
+	text-align: center;
+	float: left;
+}
+.follow_links {
+	padding:0;
+	margin: 0 auto;
+	
+
+}
+
+.qr{
+	display: none;
+}
+#footer-follow img{
+	float: left;
+	
+	
+	
+footer p{
+	padding: 0 2% 0 2%;
+	text-align: justify;
+}
