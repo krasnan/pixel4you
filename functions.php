@@ -1,11 +1,12 @@
 <?php
 function head($title){
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=0.6, maximum-scale=1">
 
 <link type="text/css" href="css.css" rel="stylesheet" >
 <link type="text/css" href="css_mobile.css" rel="stylesheet" media="screen and (max-width: 1099px)">
@@ -19,6 +20,7 @@ function head($title){
 </head>
 
 <body>
+
 <script>
 function changeClass() {
    $('#referNav a').removeClass('active');
@@ -37,29 +39,27 @@ function show_dropdown() {
    }
     
 }
-
-
-
 </script>
-
-
-<!--<div class="container-main">-->
 <?php
 }
+
+
+
+
 function print_header() {
 	?>
-	<div class="header">
-	<header class="shaddow">
-	<div class="container">
-	<div class="logo"><a href="/"><img src="/img/header.png" alt="logo"></a></div>
-	<nav>
-		<a href="/index.php">home</a>
-		<a href="/profile.php">my profile</a>
-		<a href="#footer">contact</a>
-		<a onclick=show_dropdown() id="hamburger_icon"><i class="fa fa-reorder "></i></a>
-	</nav>
+<div class="header">
+<header class="shaddow">
+<div class="container">
+	<div class="logo"><a href="/"><img src="./img/header.png" alt="logo"></a></div>
+		<nav>
+			<a href="./index.php">home</a>
+			<a href="./profile.php">my profile</a>
+			<a href="#footer">contact</a>
+			<a onclick=show_dropdown() id="hamburger_icon"><i class="fa fa-reorder "></i></a>
+		</nav>
 	</div>
-	</header>
+</header>
 <?php 
 dropdown();
 ?>
@@ -70,7 +70,6 @@ dropdown();
 
 function dropdown(){
 ?>
-
 <div id="dropdown_top" class="shaddow">
    <div class="dropdown_container">		
       <div class="search">
@@ -109,12 +108,12 @@ function dropdown(){
             <input id="login_name" type="text" placeholder="login" required>
             <label for="login_passwd" >Prihlasovacie heslo:</label>
             <input id="login_passwd" type="password" required placeholder="password">
-            <a href="/register.php" class="button">Registrovať</a>
+            <a href="./register.php" class="button">Registrovať</a>
             <input type="submit" class="button" value="Prihlásiť">
          </form>
       </div>
    </div>
-</div>
+</div>  
 <?php
 }
 
@@ -135,19 +134,19 @@ function footer() {?>
 
 <div id="footer-contact">
    <h1>contact</h1>
-	<a  name="footer">
+	<a href="" name="footer"></a>
    <form method="POST">
       <textarea name="text" id="contact_textarea" placeholder="Sem napíšte svoju správu..." required rows="5"></textarea>
-      <input type="text" name="email" id="contact_email" required placeholder="Zadajte svoju emailovú schránku..." >  		
-      <input type="submit" class="button" name="button" id="contact_button" value="Send" >
+      <input type="text" name="email" id="contact_email" required placeholder="Zadajte svoju emailovú schránku..." />  		
+      <input type="submit" class="button" name="button" id="contact_button" value="Send" />
    </form>
 </div>
 
 <div id="footer-follow">
    <h1>follow</h1>
    <div class="follow_links">
-   	<a href="https://www.facebook.com/krasnan1" target="blank"><img src="/img/facebook.png" alt="facebook"></a>
-  	 	<a class="qr" href="https://www.facebook.com/krasnan1" target="blak"><img src="/img/qr.png" alt="facebook"></a>	
+   	<a href="https://www.facebook.com/krasnan1" target="blank"><img src="./img/facebook.png" alt="facebook"></a>
+  	 	<a class="qr" href="https://www.facebook.com/krasnan1" target="blak"><img src="./img/qr.png" alt="facebook"></a>	
    </div>
 </div>
 
@@ -157,23 +156,11 @@ function footer() {?>
 </div>
 
 </footer>
-</body>
-</html>
 
+</body>
+
+</html>
 <?php
 }
-
-function naplnweb($x) {
-	
-   while($x>0) {
-      $x--;
-      echo ".<br>";
-   }
-}
-
-
-
-
-
 
 ?>

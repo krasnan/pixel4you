@@ -13,7 +13,7 @@ print_header();
 
 	<div class="image">
 	
-		<img src="/img/1.jpg" alt="1.jpg">
+		<img src="./img/1.jpg" alt="1.jpg">
 	</div>
 
 	<div class="image-details">
@@ -26,12 +26,7 @@ print_header();
 		<div class="image-icons">
 			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
 			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
-			<a href="" ></section>
-</div>
-<?php
-footer();
-?>
-<br>420</a>
+			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
 		</div>
 	</div>
 </div>
@@ -40,7 +35,7 @@ footer();
 
 	<div class="image">
 	
-		<img src="/img/2.jpg" alt="1.jpg" height="300px">
+		<img src="./img/2.jpg" alt="1.jpg" >
 	</div>
 	<a href="">
 	<div class="image-details">
@@ -64,7 +59,7 @@ footer();
 
 	<div class="image">
 	
-		<img src="/img/3.jpg" alt="1.jpg" height="300px">
+		<img src="./img/3.jpg" alt="1.jpg">
 	</div>
 	<a href="">
 	<div class="image-details">
@@ -88,7 +83,7 @@ footer();
 
 	<div class="image">
 	
-		<img src="/img/4.jpg" alt="1.jpg" height="300px">
+		<img src="./img/4.jpg" alt="1.jpg">
 	</div>
 	<a href="">
 	<div class="image-details">

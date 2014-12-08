@@ -10,7 +10,7 @@ print_header();
 <div class="user_info_container">
 	<div class="user_info  shaddow">
 		<div class="user_image">
-			<img src="/img/default_profile_image.png" alt="1.jpg">
+			<img src="./img/default_profile_image.png" alt="1.jpg">
 		</div>
 		<div class="user_nick bg_dark padding">
 			#Prezyvka
@@ -39,7 +39,7 @@ print_header();
 
 	<div class="image">
 	
-		<img src="/img/1.jpg" alt="1.jpg">
+		<img src="./img/1.jpg" alt="1.jpg">
 	</div>
 
 	<div class="image-details">
@@ -61,9 +61,9 @@ print_header();
 
 	<div class="image">
 	
-		<img src="/img/2.jpg" alt="1.jpg" height="300px">
+		<img src="./img/2.jpg" alt="1.jpg">
 	</div>
-	<a href="">
+
 	<div class="image-details">
 	
 		<div class="image-name">nazov</div>
@@ -78,16 +78,16 @@ print_header();
 		</div>
 
 	</div>
-	</a>
+
 </div>
 
 <div class="image-container">
 
 	<div class="image">
 	
-		<img src="/img/3.jpg" alt="1.jpg" height="300px">
+		<img src="./img/3.jpg" alt="1.jpg" >
 	</div>
-	<a href="">
+
 	<div class="image-details">
 	
 		<div class="image-name">nazov</div>
@@ -102,16 +102,16 @@ print_header();
 		</div>
 
 	</div>
-	</a>
+
 </div>
 
 <div class="image-container">
 
 	<div class="image">
 	
-		<img src="/img/4.jpg" alt="1.jpg" height="300px">
+		<img src="./img/4.jpg" alt="1.jpg" >
 	</div>
-	<a href="">
+
 	<div class="image-details">
 	
 		<div class="image-name">nazov</div>
@@ -126,15 +126,15 @@ print_header();
 		</div>
 
 	</div>
-	</a>
+
 </div>
 <div class="image-container">
 
 	<div class="image">
 	
-		<img src="/img/4.jpg" alt="1.jpg" height="300px">
+		<img src="./img/4.jpg" alt="1.jpg" >
 	</div>
-	<a href="">
+
 	<div class="image-details">
 	
 		<div class="image-name">nazov</div>
@@ -149,14 +149,14 @@ print_header();
 		</div>
 
 	</div>
-	</a>
+
 </div><div class="image-container">
 
 	<div class="image">
 	
-		<img src="/img/4.jpg" alt="1.jpg" height="300px">
+		<img src="./img/4.jpg" alt="1.jpg">
 	</div>
-	<a href="">
+
 	<div class="image-details">
 	
 		<div class="image-name">nazov</div>
@@ -171,12 +171,13 @@ print_header();
 		</div>
 
 	</div>
-	</a>
+
 </div>
 
 
 </section>
 </div>
+
 <?php
 footer();
 ?>

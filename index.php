@@ -13,7 +13,7 @@ print_header();
 
 	<div class="image">
 	
-		<img src="/img/1.jpg" alt="1.jpg">
+		<img src="./img/1.jpg" alt="1.jpg">
 	</div>
 
 	<div class="image-details">
@@ -22,7 +22,6 @@ print_header();
 		<a href="" class="image-autor">autor</a>
 		
 		<a href="" ><div class="fullscreen"></div></a>
-		
 		<div class="image-icons">
 			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
 			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
@@ -35,9 +34,33 @@ print_header();
 
 	<div class="image">
 	
-		<img src="/img/2.jpg" alt="1.jpg" height="300px">
+		<img src="./img/2.jpg" alt="1.jpg" >
 	</div>
-	<a href="">
+	
+	<div class="image-details">
+	
+		<div class="image-name">nazov</div>
+		<div class="image-autor">autor</div>
+		
+		<a href="#"><div class="fullscreen"></div></a>
+		
+		<div class="image-icons">
+			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
+			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
+			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
+		</div>
+
+	</div>
+	
+</div>
+
+<div class="image-container">
+
+	<div class="image">
+	
+		<img src="./img/3.jpg" alt="1.jpg" >
+	</div>
+
 	<div class="image-details">
 	
 		<div class="image-name">nazov</div>
@@ -52,16 +75,16 @@ print_header();
 		</div>
 
 	</div>
-	</a>
+
 </div>
 
 <div class="image-container">
 
 	<div class="image">
 	
-		<img src="/img/3.jpg" alt="1.jpg" height="300px">
+		<img src="./img/4.jpg" alt="1.jpg" >
 	</div>
-	<a href="">
+
 	<div class="image-details">
 	
 		<div class="image-name">nazov</div>
@@ -76,37 +99,14 @@ print_header();
 		</div>
 
 	</div>
-	</a>
-</div>
 
-<div class="image-container">
-
-	<div class="image">
-	
-		<img src="/img/4.jpg" alt="1.jpg" height="300px">
-	</div>
-	<a href="">
-	<div class="image-details">
-	
-		<div class="image-name">nazov</div>
-		<div class="image-autor">autor</div>
-		
-		<a href="" ><div class="fullscreen"></div></a>
-		
-		<div class="image-icons">
-			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
-		</div>
-
-	</div>
-	</a>
 </div>
 
 
 
 </section>
 </div>
+
 <?php
 footer();
 ?>

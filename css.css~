@@ -70,6 +70,7 @@ a, a:link, a:active, a:visited, a:focus{
 
 }
 
+
 header {
 	z-index: 11;
 	position:fixed;
@@ -499,6 +500,7 @@ footer .button{
 
 	-webkit-filter: grayscale(1);
 	-moz-filter: grayscale(1);
+	-moz-filter: grayscale(1);
 	-o-filter: grayscale(1);
 	-ms-filter: grayscale(1);
 	
@@ -533,7 +535,7 @@ footer .button{
 
 .copyright{
 	clear: left;
-	padding: 0 0 0 0;
+	padding: 10px 0 0 0;
 	color: #00baff;
 	width: 100%;
 	text-align: center;
@@ -546,6 +548,7 @@ h1{
 	text-transform: uppercase;
 	
 }
+
 
 .user_info_container{
 
