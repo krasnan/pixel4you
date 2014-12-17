@@ -51,7 +51,7 @@ function print_header() {
 <div class="header">
 <header class="shaddow">
 <div class="container">
-	<div class="logo"><a href="/"><img src="./img/header.png" alt="logo"></a></div>
+	<div class="logo"><a href="./"><img src="./img/header.png" alt="logo"></a></div>
 		<nav>
 			<a href="./index.php">home</a>
 			<a href="./profile.php">my profile</a>
@@ -74,7 +74,7 @@ function dropdown(){
    <div class="dropdown_container">		
       <div class="search">
          <div class="container-4">
-            <input type="search" id="search" placeholder="Hľadaj..." />
+            <input type="search" id="search" placeholder="search..." />
             <button class="icon"><i class="fa fa-search"></i></button>
          </div>
       </div>

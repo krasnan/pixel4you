@@ -9,11 +9,11 @@
 
 @font-face {
     font-family: myfont;
-    src: url('/font/BonvenoCF-Light.otf');
+    src: url('./font/BonvenoCF-Light.otf');
 }
 @font-face {
     font-family: FontAwesome;
-    src: url('/font/FontAwesome.otf');
+    src: url('./font/FontAwesome.otf');
 }
 
 *{
@@ -31,7 +31,7 @@ body {
 	position:relative;
 	min-height: 100%;	
 	
-	background-image: url('/img/bg-section.png');
+	background-image: url('./img/bg-section.png');
 	background-repeat: repeat;
 	background-position: top left;
 	margin: 0;
@@ -70,13 +70,12 @@ a, a:link, a:active, a:visited, a:focus{
 
 }
 
-
 header {
 	z-index: 11;
 	position:fixed;
 	
 	top:0px;
-	background-image: url('/img/bg-top.png');
+	background-image: url('./img/bg-top.png');
 	background-repeat: repeat;
 	background-position: top left;
 	width: 100%;
@@ -436,7 +435,7 @@ footer{
 	bottom: 0px;
 
 
-	background-image: url('/img/bg-top.png');
+	background-image: url('./img/bg-top.png');
 	background-repeat: repeat;
 	background-position: top left;
 	
@@ -500,7 +499,6 @@ footer .button{
 
 	-webkit-filter: grayscale(1);
 	-moz-filter: grayscale(1);
-	-moz-filter: grayscale(1);
 	-o-filter: grayscale(1);
 	-ms-filter: grayscale(1);
 	
@@ -549,7 +547,6 @@ h1{
 	
 }
 
-
 .user_info_container{
 
 	display: block;
@@ -568,7 +565,7 @@ h1{
 	padding: 4%;
 }
 .bg_dark{
-	background-image: url('/img/bg-top.png');
+	background-image: url('./img/bg-top.png');
 	background-repeat: repeat;
 }
 

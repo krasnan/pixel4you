@@ -51,7 +51,7 @@ function print_header() {
 <div class="header">
 <header class="shaddow">
 <div class="container">
-	<div class="logo"><a href="/"><img src="./img/header.png" alt="logo"></a></div>
+	<div class="logo"><a href="./"><img src="./img/header.png" alt="logo"></a></div>
 		<nav>
 			<a href="./index.php">home</a>
 			<a href="./profile.php">my profile</a>
@@ -74,7 +74,7 @@ function dropdown(){
    <div class="dropdown_container">		
       <div class="search">
          <div class="container-4">
-            <input type="search" id="search" placeholder="Hľadaj..." />
+            <input type="search" id="search" placeholder="šukaj..." />
             <button class="icon"><i class="fa fa-search"></i></button>
          </div>
       </div>
@@ -108,7 +108,7 @@ function dropdown(){
             <input id="login_name" type="text" placeholder="login" required>
             <label for="login_passwd" >Prihlasovacie heslo:</label>
             <input id="login_passwd" type="password" required placeholder="password">
-            <a href="./register.html" class="button">Registrovať</a>
+            <a href="./register.php" class="button">Registrovať</a>
             <input type="submit" class="button" value="Prihlásiť">
          </form>
       </div>
