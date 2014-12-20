@@ -663,6 +663,7 @@ h1{
 
 
 #img{
+
 	display: none;
     z-index: 11;
     position:fixed;
@@ -684,13 +685,28 @@ h1{
 #image_max{
     /*background: black;*/
     position: relative;
-    background: #000  no-repeat fixed center;
+    background: #000;
     background-size: auto 100%; 
     margin: auto auto;
     top: 5%;
     width: 90%;
     height: 90%;
 }
+#image_container{
+	display: flex;
+	-webkit-flex: 1; 
+    -ms-flex: 1; 
+
+	width: 100%;
+	height: 100%;
+}
+#img_actual{
+	max-height: 100%;
+	max-width: 100%;
+	display: block;
+	margin: auto;
+}
+
 .hidden{
 	opacity: 0;
 	-o-transition:.5s;
@@ -711,19 +727,18 @@ h1{
 }
 
 .back_area{
-    float: left;
-    /*background: rgba(255,255,255,0.2);*/
     position: absolute;
-    width: 10%;
+    width: 20%;
+    top:0;
     left: 0%;
     height: 100%;
 }
 
 .next_area{
     position: absolute;
-
-    width: 10%;
+    top: 0;
     right: 0%;
+    width: 20%;
     height: 100%;
 }
 
@@ -764,12 +779,12 @@ h1{
 	color: #00baff;
 }
 
-.info_container{
+.image_info_container{
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 80px;
+    height: auto;
     color: white;
 
 	background: -moz-linear-gradient(90deg, rgba(255, 255, 255,0) 0%, rgb(0, 0, 0) 100%);
@@ -777,12 +792,19 @@ h1{
 	background: -o-linear-gradient(90deg, rgba(255, 255, 255,0) 0%, rgb(0, 0, 0) 100%);
 	background: -ms-linear-gradient(90deg, rgba(255, 255, 255,0) 0%, rgb(0, 0, 0) 100%);
 	background: linear-gradient(180deg, rgba(255, 255, 255,0) 0%, rgb(0, 0, 0) 100%);
-
+}
+#image_info{
+	text-align: center;
+	width: 80%;
+	margin: auto;
+}
+#image_info p{
+	font-size: 70%;
 }
 
 #button_slideshow{
 	position: absolute;
 	right: 30px;
-	top: 50%;
+	top: 0;
 }
 
