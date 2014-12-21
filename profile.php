@@ -4,6 +4,9 @@ head("Pixel4You");
 print_header();
 ?>
 
+<script src="jquery-2.1.3.min.js" ></script>
+<script src="./gallery.js"></script>
+
 
 <div class="section">
 <section class="container">
@@ -35,144 +38,40 @@ print_header();
 
 
 
-<div class="image-container">
 
-	<div class="image">
-	
-		<img src="./img/1.jpg" alt="1.jpg">
-	</div>
+<script>
+	printMiniatures();
+</script>
 
-	<div class="image-details">
-	
-		<a href="" class="image-name">nazov</a>
-		<a href="" class="image-autor">autor</a>
-		
-		<a href="" ><div class="fullscreen"></div></a>
-		
-		<div class="image-icons">
-			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
-		</div>
-	</div>
-</div>
+    <div id="img">
+        <div id='image_max_container'> 
+            <div id='image_max' class="shaddow"> 
+           			<div id="image_container">
 
-<div class="image-container">
+           			</div>	
+            		
+            		<a class="exit_area hidden" onclick='galeryExit();galerySlideshowStop();clearTimeout(timeo);'><i id="button_exit" class="fa fa-close"></i></a>
+                    <a class="back_area hidden" onclick='galeryBack();'><i id="button_back" class="fa fa-chevron-left fa-2x"></i></a> 
+                    <a class="next_area hidden" onclick='galeryNext();'><i id="button_next" class="fa fa-chevron-right fa-2x"></i></a> 
 
-	<div class="image">
-	
-		<img src="./img/2.jpg" alt="1.jpg">
-	</div>
+                    <div class="image_info_container hidden">
+                  		<div id='image_info'>
 
-	<div class="image-details">
-	
-		<div class="image-name">nazov</div>
-		<div class="image-autor">autor</div>
-		
-		<a href="" ><div class="fullscreen"></div></a>
-		
-		<div class="image-icons">
-			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
-		</div>
+                  		</div>
+                    	<div id="button_slideshow">
+                    		<a onclick="galerySlideshowPlay();timeo=setInterval(function(){galeryNext()},3000);"><i class="fa fa-play"></i></a>
+                        	
+                        </div>
+                    </div> 
 
-	</div>
 
-</div>
+            </div> 
+            
+        </div> 
+    </div>
 
-<div class="image-container">
 
-	<div class="image">
-	
-		<img src="./img/3.jpg" alt="1.jpg" >
-	</div>
 
-	<div class="image-details">
-	
-		<div class="image-name">nazov</div>
-		<div class="image-autor">autor</div>
-		
-		<a href="" ><div class="fullscreen"></div></a>
-		
-		<div class="image-icons">
-			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
-		</div>
-
-	</div>
-
-</div>
-
-<div class="image-container">
-
-	<div class="image">
-	
-		<img src="./img/4.jpg" alt="1.jpg" >
-	</div>
-
-	<div class="image-details">
-	
-		<div class="image-name">nazov</div>
-		<div class="image-autor">autor</div>
-		
-		<a href="" ><div class="fullscreen"></div></a>
-		
-		<div class="image-icons">
-			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
-		</div>
-
-	</div>
-
-</div>
-<div class="image-container">
-
-	<div class="image">
-	
-		<img src="./img/4.jpg" alt="1.jpg" >
-	</div>
-
-	<div class="image-details">
-	
-		<div class="image-name">nazov</div>
-		<div class="image-autor">autor</div>
-		
-		<a href="" ><div class="fullscreen"></div></a>
-		
-		<div class="image-icons">
-			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
-		</div>
-
-	</div>
-
-</div><div class="image-container">
-
-	<div class="image">
-	
-		<img src="./img/4.jpg" alt="1.jpg">
-	</div>
-
-	<div class="image-details">
-	
-		<div class="image-name">nazov</div>
-		<div class="image-autor">autor</div>
-		
-		<a href="" ><div class="fullscreen"></div></a>
-		
-		<div class="image-icons">
-			<a href="" ><i class="fa fa-comment fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-cloud-download fa-2x"></i><br>420</a>
-			<a href="" ><i class="fa fa-heart fa-2x"></i><br>420</a>
-		</div>
-
-	</div>
-
-</div>
 
 
 </section>
