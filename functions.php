@@ -6,161 +6,205 @@ function head($title){
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.6, maximum-scale=1">
 
-<link type="text/css" href="css.css" rel="stylesheet" >
-<link type="text/css" href="css_mobile.css" rel="stylesheet" media="screen and (max-width: 1099px)">
+<link type="text/css" href="./css.css" rel="stylesheet" >
 <link type="text/css" href="font-awesome.min.css" rel="stylesheet">
 
-<!--<link type="text/css" href="css.css" rel="stylesheet">
--->
 
 
-<title><?php echo $title ?></title>
+<title>rocnikovy projekt 1</title>
 </head>
 
-<body>
+<body class="bg6">
 
-<script>
-function changeClass() {
-   $('#referNav a').removeClass('active');
-   $(this).addClass('active');
-}
+<script src="jquery-2.1.3.min.js" ></script>
+<script src="./gallery.js"></script>
 
-function show_dropdown() {
-   var x = document.getElementById("dropdown_top");
-   if (x.style.opacity != "1") {
-      x.style.top = "80px";           
-      x.style.opacity = "1"; 
-   }
-   else {
-      x.style.top = "-80%";           
-      x.style.opacity = "0"; 
-   }
-    
-}
-</script>
 <?php
+session_start();
 }
 
 
 
 
-function print_header() {
-	?>
-<div class="header">
-<header class="shaddow">
-<div class="container">
-	<div class="logo"><a href="./"><img src="./img/header.png" alt="logo"></a></div>
+
+function print_header($active) {
+?>
+<header class="shaddow bg5">
+	<div class="container padding">
+	
+		<div class="logo">
+			<a href="/"><img src="./img/header.png" alt="logo"></a>
+		</div>	
 		<nav>
-			<a href="./index.php">home</a>
-			<a href="./profile.php">my profile</a>
-			<a href="#footer">contact</a>
-			<a onclick=show_dropdown() id="hamburger_icon"><i class="fa fa-reorder "></i></a>
+			<?php 
+	    	if (isset($_SESSION["userLogin"])) {?>
+				<a <?php if($active == "upload"){echo 'class="active"';} ?> href="upload.php" title="Upload" class="color1"><i class="fa fa-upload fa-2x"></i></a>
+				<a <?php if($active == "profile"){echo 'class="active"';} ?> href="profile.php" title="My Profile" class="color1"><i class="fa fa-user fa-2x"></i></a>
+			
+			<?php
+			}
+			?>
+			<a <?php if($active == "index"){echo 'class="active"';} ?> href="index.php" title="Home" class="color1"><i class="fa fa-home fa-2x"></i></a>
+			
+
+			
 		</nav>
 	</div>
 </header>
-<?php 
-dropdown();
-?>
 
-</div>
 <?php
+printDropdown();
 }
 
-function dropdown(){
+
+
+function print_footer() {
 ?>
-<div id="dropdown_top" class="shaddow">
-   <div class="dropdown_container">		
-      <div class="search">
-         <div class="container-4">
-            <input type="search" id="search" placeholder="search..." />
-            <button class="icon"><i class="fa fa-search"></i></button>
-         </div>
-      </div>
-      <div class="hr"></div>
-      <div class="filter">
-         <div class="subcategory">
-            Podkategória 1
-            <br>
-            <a href="" class="category">kategoria 1</a><br>
-            <a href="" class="category">kategoria 2</a><br>
-            <a href="" class="category">kategoria 3</a><br>
-            <a href="" class="category">kategoria 4</a><br>
-            <a href="" class="category">kategoria 5</a><br><br>
 
-         </div>
-         <div class="subcategory">
-            Podkategória 2
-            <br>
-            <a href="" class="category">kategoria 1</a><br>
-            <a href="" class="category">kategoria 2</a><br>
-            <a href="" class="category">kategoria 3</a><br>
-            <a href="" class="category">kategoria 4</a><br>
-            <a href="" class="category">kategoria 5</a><br><br>
+<div class="wrapper"></div>
+<footer class="shaddow bg5">
+	<div class="container ">
+		<div class="copyright color3">© 2014 Martin Krasňan. All Rights Reserved.</div>
+	</div>
+</footer>
+</body>
+</html>
 
-         </div>
-      </div>
-      <div class="hr"></div>
-      <div class="login">
-         <form id="login" method="POST">
-            <label for="login_name" >Prihlasovacie meno:</label>
-            <input id="login_name" type="text" placeholder="login" required>
-            <label for="login_passwd" >Prihlasovacie heslo:</label>
-            <input id="login_passwd" type="password" required placeholder="password">
-            <a href="./register.php" class="button">Registrovať</a>
-            <input type="submit" class="button" value="Prihlásiť">
-         </form>
-      </div>
-   </div>
+<?php
+
+}
+
+
+
+
+
+function printDropdown(){
+?>
+<div id="dropdown_container" class="shaddow container color1 bg4">
+	<div id="dropdown">
+		<div class="search">
+         	<div class="search_box_container">
+            	<input class="input" type="search" id="search_box" placeholder="search..." />
+            	<a class="button"><i class="fa fa-search"></i></a>
+         	</div>
+      	</div>
+      	<div class="filter ">
+         	<div class="subcategory  color2">
+            	Podkategória 1
+	            <br>
+	            <a href="" class="category color1">kategoria 1</a><br>
+	            <a href="" class="category color1">kategoria 2</a><br>
+	            <a href="" class="category color1">kategoria 3</a><br>
+	            <a href="" class="category color1">kategoria 4</a><br>
+	            <a href="" class="category color1">kategoria 5</a><br><br>
+
+         	</div>
+	        <div class="subcategory  color2">
+	            Podkategória 2
+	            <br>
+	            <a href="" class="category color1">kategoria 1</a><br>
+	            <a href="" class="category color1">kategoria 2</a><br>
+	            <a href="" class="category color1">kategoria 3</a><br>
+	            <a href="" class="category color1">kategoria 4</a><br>
+	            <a href="" class="category color1">kategoria 5</a><br><br>
+	        </div>
+	    </div>
+	    <div class="login">
+	    	<?php 
+	    	if (isset($_SESSION["userLogin"])) {
+	    		echo "<div class='right'>" . $_SESSION["userName"] . " " . $_SESSION["userSurname"] . "</div><br><br>";
+	    		echo '		        <a id="logout" href="./logout.php" class="button bg1 color2 right">Odhlásiť</a>';
+	    	}
+	    	else{
+	    	?>
+		    <form id="login" method="POST" action="login.php">
+		        <label for="login_name" >Prihlasovacie meno:</label>
+		        <input id="login_name" name="login_name" class="input" type="text" placeholder="login" required>
+		        <label for="login_passwd" >Prihlasovacie heslo:</label>
+		        <input id="login_passwd" name="login_passwd" class="input" type="password" required placeholder="password">
+		        
+		        <a id="login_button_reg" href="./register.php" class="button bg1 color2">Registrovať</a>
+		        <input id="login_button_log" type="submit" class="button bg1 color2 right" name="submit" value="Prihlásiť">
+
+		    </form>
+			<?php 
+			}
+			?>
+
+      	</div>
+   	</div>
 </div>  
 <?php
 }
 
 
+function printRegistrationForm(){
+?>
+		<form action="register.php" id="form" method="POST" enctype="multipart/form-data">
+
+			<div id="info_cont" class="left">
+				<label class="label bg4 color1 shaddow" for="reg_login"><i class="fa fa-users"></i>&nbsp Prezývka</label>
+				<input onKeyUp=" checkLogin('reg_login')" class="input shaddow" type="text" name="reg_login" id="reg_login" placeholder="*Prezývka (len znaky: a-z, A-Z, _, -)" >
+				
+				
+				<label class="label bg4 color1 shaddow" for="name"><i class="fa fa-user"></i>&nbsp Meno</label>
+				<input onKeyUp="isName('name')" class="input shaddow" type="text" name="name" id="name" placeholder="*Meno (viac ako 2 znaky)" >
+				
+
+				<label class="label bg4 color1 shaddow" for="surname"><i class="fa fa-user"></i>&nbsp Priezvisko</label>
+				<input onKeyUp="isName('surname')" class="input shaddow" type="text" name="surname" id="surname" placeholder="*Priezvisko (viac ako 2 znaky)" >
+			
+
+				<label class="label bg4 color1 shaddow" for="email"><i class="fa fa-envelope"></i>&nbsp Email</label>
+				<input onKeyUp="checkEmail('email')" class="input shaddow" type="email" name="email" id="email" placeholder="*Email (aaa@aaa.sk)" >
+				
+
+				<label class="label bg4 color1 shaddow" for="password"><i class="fa fa-shield"></i>&nbsp Heslo</label>
+				<input onKeyUp="isPasswd('password')" class="input shaddow" type="password" name="password" id="password" placeholder="*Heslo (viac ako 6 znakov)" >
+
+				
+				<label class="label bg4 color1 shaddow" for="password2"><i class="fa fa-shield"></i>&nbsp Heslo</label>
+				<input onKeyUp="evalPasswd('password', 'password2')" class="input shaddow" type="password" name="password2" id="password2" placeholder="*Overenie hesla" > 	
+
+				
+				<label class="label bg4 color1 shaddow" for="bio" style="height: 100px; line-height:100px;"><i class="fa fa-info"></i>&nbsp Bio</label>
+				<textarea class="input shaddow" name="bio" id="bio" placeholder="bio-detaily o používateľovi..." ></textarea>
+				
+			</div>
+
+			<div id="img_cont" class="right">
+				<img id="img_preview" src="./img/default_profile_image.png" class="shaddow bg4" alt="1.jpg">
+				
+				<label class="label bg4 color1 shaddow" for="input_f"><i class="fa fa-image"></i></label>
+			
+				<input id="input_f" name="input_f" type="file" accept="image/*" />
+				<label class="input button shaddow bg1" for="input_f">Add profile picture</label>
 
 
-function footer() {?>
-<div class="wrapper"></div>
-<footer class="shaddow">
-<div class="container">
 
-<div id="footer-about">
-   <h1>about</h1>
-   <p>
-      volajake tie textiky o tom aky som strasne super a ake pekne stranky robim a bla bla bla bla bla lba 	
-   </p>
-</div>
+				<script type="text/javascript">
 
-<div id="footer-contact">
-   <h1>contact</h1>
-	<a href="" name="footer"></a>
-   <form method="POST">
-      <textarea name="text" id="contact_textarea" placeholder="Sem napíšte svoju správu..." required rows="5"></textarea>
-      <input type="text" name="email" id="contact_email" required placeholder="Zadajte svoju emailovú schránku..." />  		
-      <input type="submit" class="button" name="button" id="contact_button" value="Send" />
-   </form>
-</div>
 
-<div id="footer-follow">
-   <h1>follow</h1>
-   <div class="follow_links">
-   	<a href="https://www.facebook.com/krasnan1" target="blank"><img src="./img/facebook.png" alt="facebook"></a>
-  	 	<a class="qr" href="https://www.facebook.com/krasnan1" target="blak"><img src="./img/qr.png" alt="facebook"></a>	
-   </div>
-</div>
+				function readURL(input) {
+				    if (input.files && input.files[0]) {
+				        var reader = new FileReader();
+				        reader.onload = function (e) {
+				            $('#img_preview').attr('src', e.target.result);
+				        }
+				        reader.readAsDataURL(input.files[0]);
+				    }
+				}
+				$("#input_f").change(function(){
+				    readURL(this);
+				});
+				</script>
+				<div id="reg_user_errors" class="error"></div>
+				<input name="submit" type="submit" class="button bg4 color1 shaddow" value="Zaregistrovať" style="float:right">	
+			
 
-<div class="copyright">
-© 2014 Martin Krasňan. All Rights Reserved.
-</div>
-</div>
-
-</footer>
-
-</body>
-
-</html>
+				<script type="text/javascript" src="./validations.js"></script>
+			</div>
+		</form>
 <?php
 }
-
-?>

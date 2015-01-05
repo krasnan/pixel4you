@@ -1,83 +1,51 @@
 <?php
 include ("functions.php");
-head("Pixel4You");
-print_header();
+head("Pixel4You-rp1");
+print_header("profile");
 ?>
 
-<script src="jquery-2.1.3.min.js" ></script>
-<script src="./gallery.js"></script>
+<section>
+	<div class="container">
 
 
-<div class="section">
-<section class="container">
-<div class="user_info_container">
-	<div class="user_info  shaddow">
-		<div class="user_image">
-			<img src="./img/default_profile_image.png" alt="1.jpg">
+		<div class="user_info_container bg4 color1 shaddow">
+			<div class="user_info  ">
+				<div class="user_info_image">
+					<img src="<?php echo $_SESSION["userImage"]?>">
+				</div>
+				<div class="user_info_nick  padding bg5 color3">
+					#<?php echo $_SESSION["userLogin"];?>
+				</div>
+				<div class="user_info_name_surname padding">
+					<?php echo $_SESSION["userName"] . " " . $_SESSION["userSurname"];?>	
+				</div>
+				<div class="user_info_focus padding">
+					zameranie autora
+				</div>
+				<div class="user_info_bio_header bg5 color3">
+					bio:
+				</div>
+				<div class="user_info_bio padding">
+					<?php echo $_SESSION["userBio"];?>
+				</div>
+				<div class="user_info_websites padding color1">
+					<a href="" class="color1" target="blank">www.nazov.stranky.com</a>
+				</div>
+			</div>
 		</div>
-		<div class="user_nick bg_dark padding">
-			#Prezyvka
-		</div>
-		<div class="user_name_surname padding">
-			Meno Priezvisko		
-		</div>
-		<div class="user_focus padding">
-			zameranie autora
-		</div>
-		<div class="user_bio_header bg_dark">
-			bio:
-		</div>
-		<div class="user_bio padding">
-			Bio Autora- detaily o autorovi a jeho zaujmy, zaluby, popis jeho profilovych vlastnosti...
-		</div>
-		<div class="user_websites padding">
-			<a href="" target="blank">www.nazov.stranky.com</a>
-		</div>
+
+
+
+		<script>
+			printImageMaxContainer();
+			printMiniatures("20%", "180px");
+		</script>
+		
 	</div>
-</div>
-
-
-
-
-<script>
-	printMiniatures();
-</script>
-
-    <div id="img">
-        <div id='image_max_container'> 
-            <div id='image_max' class="shaddow"> 
-           			<div id="image_container">
-
-           			</div>	
-            		
-            		<a class="exit_area hidden" onclick='galeryExit();galerySlideshowStop();clearTimeout(timeo);'><i id="button_exit" class="fa fa-close"></i></a>
-                    <a class="back_area hidden" onclick='galeryBack();'><i id="button_back" class="fa fa-chevron-left fa-2x"></i></a> 
-                    <a class="next_area hidden" onclick='galeryNext();'><i id="button_next" class="fa fa-chevron-right fa-2x"></i></a> 
-
-                    <div class="image_info_container hidden">
-                  		<div id='image_info'>
-
-                  		</div>
-                    	<div id="button_slideshow">
-                    		<a onclick="galerySlideshowPlay();timeo=setInterval(function(){galeryNext()},3000);"><i class="fa fa-play"></i></a>
-                        	
-                        </div>
-                    </div> 
-
-
-            </div> 
-            
-        </div> 
-    </div>
-
-
-
-
-
 </section>
-</div>
 
 <?php
-footer();
+print_footer();
 ?>
+
 

@@ -1,0 +1,47 @@
+.user_info_container{
+	width: 31%;
+	float: left;
+	margin: 1%;
+	min-height: 420px;
+}
+.user_info_image{
+	min-height: 240px;
+	overflow: hidden;
+	position: relative;
+}
+
+.user_info_image img{
+	position: absolute;
+	bottom: 0;
+	left: 10%;
+	display: block;
+	margin: 0 auto;
+	width: 80%;
+	height: auto;
+}
+
+.user_info_nick{
+	text-align: center;
+	font-size: 20pt;
+}
+.user_info_name_surname{
+	font-size: 15pt;
+}
+
+.user_info_focus{
+	font-size: 8pt;
+}
+
+.user_info_bio_header{
+	text-align: center;
+	font-size: 15pt;
+	text-transform: capitalize;
+}
+
+.user_info_bio{
+	font-size: 10pt;
+	text-align: justify;
+}
+.user_info_websites{
+	font-size: 8pt;
+}
