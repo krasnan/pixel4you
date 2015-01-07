@@ -1,11 +1,3 @@
-
-var myImages= [
-    {"author": "autor1", "imgName":"3d stlce", "path":"./img/1.jpg",  "thumbnail":"./img/1.jpg", "imgDescription":"dajaky ten popis" , "downloads":"420", "likes":"420", "comments":"10"},
-    {"author": "autor1", "imgName":"mountains", "path":"./img/2.jpg",  "thumbnail":"./img/2.jpg", "imgDescription":"dajaky ten popis", "downloads":"420", "likes":"420", "comments":"10"},
-    {"author": "autor3", "imgName":"girl", "path":"./img/3.jpg",  "thumbnail":"./img/3.jpg", "imgDescription":"dajaky ten popis", "downloads":"420", "likes":"420", "comments":"10"},
-    {"author": "autor4", "imgName":"abstract", "path":"./img/4.jpg",  "thumbnail":"./img/4.jpg", "imgDescription":"dajaky ten popis", "downloads":"420", "likes":"420", "comments":"10"}       
-];
-var myImagesLength = myImages.length;
 var _timeo;
 
 function showMaximized(index){
@@ -38,7 +30,7 @@ function galeryExit(){
 
 
  function galeryNext(){
- 	if (_index < myImagesLength-1) {
+ 	if (_index < myImages.length-1) {
 		_index++;
 	}
 	else{
@@ -57,7 +49,7 @@ function galeryBack(){
 		_index--;
 	}
 	else{
-		_index = myImagesLength-1;
+		_index = myImages.length-1;
 	};
     $("#img_actual").animate({opacity: '0',maxHeight: '70%',maxWidth: '70%'},200,function(){
    		$('#img_actual').replaceWith('<img id="img_actual" style="display:none" src="'+ myImages[_index].path + '">' );
@@ -88,10 +80,10 @@ function printMiniatures(width, height){
 	for (var i = 0; i < myImages.length; i++) {
 		document.write(' \
 		<div class="image_min_container shaddow" style="width: ' + width + '; height:' + height + '"> \
-			<img src="'+ myImages[i].thumbnail +'" alt="'+ myImages[i].imgName +'"> \
+			<img src="'+ myImages[i].thumb +'" alt="'+ myImages[i].name +'"> \
 			<div title="Maximize image" class="image_min_info overlay" onclick="showMaximized('+ i +')"> \
 				<a onclick="" title="Show user profile" class="image_min_author color1"><i class="fa fa-user"></i> '+ myImages[i].author +'</a> \
-				<a onclick="" title="Open image" class="image_min_name color1"><i class="fa fa-tag"></i> '+ myImages[i].imgName +'</a> \
+				<a onclick="" title="Open image" class="image_min_name color1"><i class="fa fa-tag"></i> '+ myImages[i].name +'</a> \
 				<div class="image_min_buttons"> \
 					<a onclick="" title="Comment" class="color1"><i class="fa fa-comment fa-2x"></i><br>'+ myImages[i].comments +'</a> \
 					<a onclick="" title="Download" class="color1"class=" color1"><i class="fa fa-cloud-download fa-2x"></i><br>'+ myImages[i].downloads +'</a> \

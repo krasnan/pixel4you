@@ -1,5 +1,6 @@
 <?php
 include ("functions.php");
+include ("functionsDB.php");
 head("Pixel4You-rp1");
 print_header("profile");
 ?>
@@ -37,6 +38,8 @@ print_header("profile");
 
 
 		<script>
+			var myImages = 	<?php getUserUploads($_SESSION["userId"]);	?>;
+
 			printImageMaxContainer();
 			printMiniatures("20%", "180px");
 		</script>

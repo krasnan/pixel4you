@@ -17,30 +17,9 @@ function spoj_s_db() {
 	}
 }
 
-
-function imageUpload($image, $name, $dir, $maxSize, $owner, $album, $describtion, $category)
+function actualDate()
 {
-	if ($image["size"] > $maxSize) {
-		echo "Obrázok je príliš veľký, maximálna veľkosť obrázka je " . $maxSize . "B.";
-		return false;
-	}
-	$imageFileType = pathinfo($image["name"],PATHINFO_EXTENSION);
-
-	$targetFile = $dir . uniqid() . "." . $imageFileType;
-
-	// pokial taky subor uz existuje tak generuj ine meno suboru 
-	while(file_exists($targetFile)) {
-		$targetFile = $dir . uniqid() . "." . $imageFileType;
-	}
-	// ak sa ulozenie podari tak vrat cestu k suboru na serveri
-	if (move_uploaded_file($image["tmp_name"], $targetFile)) {
-		imageToDB($name, $targetFile, $owner, $imageFileType, $image["size"], $album, $describtion, $category);
-		return $name;
-	}
-	else{
-		return false;
-	}
-
+	return date("Y-m-d");
 }
 
 function userToDB ($login, $passwd, $email, $name, $surname, $bio, $websites, $birthdate, $regdate){
@@ -65,15 +44,47 @@ function userToDB ($login, $passwd, $email, $name, $surname, $bio, $websites, $b
 		die("Connection failed: " . mysqli_connect_error());
 		return false;
 	}
+} 
+
+function imageUpload($image, $name, $dir, $maxSize, $owner, $author,/* $album,*/ $describtion, $category)
+{
+	if ($image["size"] > $maxSize) {
+		echo "Obrázok je príliš veľký, maximálna veľkosť obrázka je " . $maxSize . "B.";
+		return false;
+	}
+	$imageFileType = pathinfo($image["name"],PATHINFO_EXTENSION);
+
+	$filename = uniqid() . "." . $imageFileType;
+	$targetFile = $dir . $filename;
+
+	// pokial taky subor uz existuje tak generuj ine meno suboru 
+	while(file_exists($targetFile)) {
+		$filename = uniqid() . "." . $imageFileType;
+		$targetFile = $dir . $filename;
+	}
+	// ak sa ulozenie podari tak vrat cestu k suboru na serveri
+	if (move_uploaded_file($image["tmp_name"], $targetFile)) {
+		$thumb = createThumbnail($dir, $filename, $imageFileType, 300);
+		imageToDB($name, $targetFile, $owner, $author, $imageFileType, $thumb, $image["size"], /*$album, */$describtion, $category);
+
+
+		return $targetFile;
+	}
+	else{
+		return false;
+	}
+
 }
 
-function imageToDB($name, $path, $owner, $type, $size, $album, $describtion, $category)
+
+function imageToDB($name, $path, $owner, $author, $type, $thumb, $size,  /*$album,*/ $describtion, $category)
 {
 	if ($conn = spoj_s_db()) {
+		$date = actualDate();
 
-		$sql = "INSERT INTO `uploads` 
-		(`id`, `name`, `path`, `owner`, `type`, `size`, `album`, `describtion`, `category`, `likes`, `downloads`, `comments`) 
-		VALUES (NULL, '$name', '$path', '$owner','$type', '$size', '$album', '$describtion', '$category', '0', '0', '0')";
+		$sql = "INSERT INTO `uploads`
+		(`id`, `name`, `path`, `thumb`, `owner`, `author`, `date`, `type`, `size`, `describtion`, `category`, `likes`, `downloads`, `comments`)
+		VALUES (NULL, '$name', '$path', '$thumb', '$owner', '$author', '$date', '$type', '$size', '$describtion', '$category', '0', '0', '0')";
 		
 		if (mysqli_query($conn, $sql)) {
 		    $last_id = mysqli_insert_id($conn);
@@ -92,9 +103,47 @@ function imageToDB($name, $path, $owner, $type, $size, $album, $describtion, $ca
 	}
 }
 
+function createThumbnail($img_dir, $filename, $filetype, $final_width_of_image) {
+	$thumbs_dir = $img_dir . 'thumbs/';
+	     
+    if($filetype == "jpg") {
+        $im = imagecreatefromjpeg($img_dir . $filename);
+    } else if ($filetype == "gif") {
+        $im = imagecreatefromgif($img_dir . $filename);
+    } else if ($filetype == "png") {
+        $im = imagecreatefrompng($img_dir . $filename);
+    }
+    else{
+    	return false;
+    }
+     
+    $ox = imagesx($im);
+    $oy = imagesy($im);
+     
+    $nx = $final_width_of_image;
+    $ny = floor($oy * ($final_width_of_image / $ox));
+     
+    $nm = imagecreatetruecolor($nx, $ny);
+     
+    imagecopyresized($nm, $im, 0,0,0,0,$nx,$ny,$ox,$oy);
+     
+    if(!file_exists($thumbs_dir)) {
+      if(!mkdir($thumbs_dir)) {
+           die("There was a problem. Please try again!");
+           return false;
+      } 
+       }
+ 
+    imagejpeg($nm, $thumbs_dir . $filename);
+    $tn = '<img src="' . $thumbs_dir . $filename . '" alt="image" />';
+    $tn .= '<br />Congratulations. Your file has been successfully uploaded, and a      thumbnail has been created.';
+    echo $tn;
+    return  $thumbs_dir . $filename ;
+
+}
 function albumToDb($author, $name, $public, $describtion){
 	if ($conn = spoj_s_db()) {
-		$date = date("Y-m-d");
+		$date = actualDate();
 		$sql = "INSERT INTO `albums`
 		(`id`, `author`, `name`, `date`, `public`, `describtion`, `likes`) 
 		VALUES (NULL,'$author','$name','$date','$public','$describtion','0')";
@@ -157,7 +206,7 @@ function printAlbumsOptions($userId)
 	}
 }
 
-function printCategoryOptions($userId)
+function printCategoryOptions()
 {
 	if ($conn = spoj_s_db()) {
 		$sql = "SELECT * FROM `category` WHERE 1";
@@ -178,6 +227,35 @@ function printCategoryOptions($userId)
 		return false;
 	}
 }
+
+
+function getUserUploads($userId = NULL)
+{
+	if ($conn = spoj_s_db()) {
+		if ($userId != NULL) {
+			$sql = "SELECT * FROM `uploads` WHERE `owner` = '$userId'";
+		}
+		else{
+			$sql = "SELECT * FROM `uploads` WHERE 1";
+		}
+		
+
+		$result = mysqli_query($conn, $sql);
+		if ($result) {
+			$rows = array();
+			while ($row = mysqli_fetch_assoc($result)) {
+				$rows[] = $row;
+			}
+			mysqli_free_result($result);
+			print json_encode($rows);
+		}
+	}
+	else{
+		die("Connection failed: " . mysqli_connect_error());
+		return false;
+	}
+}
+
 
 
 ?>

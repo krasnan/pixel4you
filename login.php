@@ -28,6 +28,7 @@ if ($conn = spoj_s_db()) {
 	} 
 	else {
 	    mysqli_close($conn);
+	    header( "Location: ./" ); 
 	    return false;
 	}
 }

@@ -26,9 +26,11 @@ function isEmail(field) {
 	var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 	 if (regex.test($("#"+field).val())){
+    updateLabel(field, "red");
 	  	return true;
 	}
 	else{
+    updateLabel(field, "red");
 	  	return false;
 	};
 }
@@ -49,10 +51,12 @@ function checkEmail (field) {
 function isLogin(field) {
   	var regex = /^([a-zA-Z0-9_-]{4,40})+$/;
   	if (regex.test($("#"+field).val())){
-		return true;
+      updateLabel(field, "green");
+		  return true;
   	
   	}
   	else{
+      updateLabel(field, "red");
   		return false;
   	};
 }

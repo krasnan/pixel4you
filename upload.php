@@ -2,7 +2,7 @@
 include ("functions.php");
 include ("functionsDB.php");
 head("Pixel4You-rp1");
-print_header("index");
+print_header("upload");
 ?>
 
 
@@ -16,7 +16,7 @@ print_header("index");
 		</div>
 
 
-		<form action="upload_file.php" id="form" method="POST" enctype="multipart/form-data">
+		<form action="upload_file.php" id="form" class="form" method="POST" enctype="multipart/form-data">
 
 			<div id="img_cont" class="left">
 				<img id="img_preview" src="./img/default_profile_image.png" class="shaddow bg4" alt="1.jpg">
@@ -39,6 +39,8 @@ print_header("index");
 				<label class="label bg4 color1 shaddow" for="describtion" style="height: 100px; line-height:100px;"><i class="fa fa-info"></i>&nbsp Popis</label>
 				<textarea class="input shaddow" name="describtion" id="describtion" placeholder="Popis fotky..." ></textarea>
 				
+				<!--
+
 				<label class="label bg4 color1 shaddow" for="albumSelect"><i class="fa fa-toggle-down"></i>&nbsp Album</label>
 				<select class="select shaddow" id="albumSelect" required>
 					<option id="selectAlbum_def" selected></option>
@@ -50,7 +52,7 @@ print_header("index");
 				<label class="label bg4 color1 shaddow" for="album"><i class="fa fa-plus"></i>&nbsp Album</label>
 				<input class="input shaddow" type="text" name="album" id="album" placeholder="Zadaj názov nového albumu...">
 				
-
+-->
 
 				<label class="label bg4 color1 shaddow" for="selectCategory"><i class="fa fa-toggle-down"></i>&nbsp Kategória</label>
 				<select class="select shaddow" id="selectCategory" name="category" required>

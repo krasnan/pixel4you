@@ -1,5 +1,6 @@
 <?php
 include ("functions.php");
+include ("functionsDB.php");
 head("Pixel4You-rp1");
 print_header("index");
 ?>
@@ -8,6 +9,7 @@ print_header("index");
 	<div class="container">
 
 		<script>
+			var myImages = 	<?php getUserUploads();	?>;
 			printImageMaxContainer();
 			printMiniatures();
 		</script>

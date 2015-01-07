@@ -141,31 +141,31 @@ function printDropdown(){
 
 function printRegistrationForm(){
 ?>
-		<form action="register.php" id="form" method="POST" enctype="multipart/form-data">
+		<form action="register.php" id="reg" class="form" method="POST" enctype="multipart/form-data">
 
 			<div id="info_cont" class="left">
 				<label class="label bg4 color1 shaddow" for="reg_login"><i class="fa fa-users"></i>&nbsp Prezývka</label>
-				<input onKeyUp=" checkLogin('reg_login')" class="input shaddow" type="text" name="reg_login" id="reg_login" placeholder="*Prezývka (len znaky: a-z, A-Z, _, -)" >
+				<input onKeyUp=" checkLogin('reg_login')" class="input shaddow" type="text" required name="reg_login" id="reg_login" placeholder="*Prezývka (len znaky: a-z, A-Z, _, -)" >
 				
 				
 				<label class="label bg4 color1 shaddow" for="name"><i class="fa fa-user"></i>&nbsp Meno</label>
-				<input onKeyUp="isName('name')" class="input shaddow" type="text" name="name" id="name" placeholder="*Meno (viac ako 2 znaky)" >
+				<input onKeyUp="isName('name')" class="input shaddow" type="text" name="name"  id="name" placeholder="*Meno (viac ako 2 znaky)" required>
 				
 
 				<label class="label bg4 color1 shaddow" for="surname"><i class="fa fa-user"></i>&nbsp Priezvisko</label>
-				<input onKeyUp="isName('surname')" class="input shaddow" type="text" name="surname" id="surname" placeholder="*Priezvisko (viac ako 2 znaky)" >
+				<input onKeyUp="isName('surname')" class="input shaddow" type="text"  name="surname" id="surname" placeholder="*Priezvisko (viac ako 2 znaky)" required>
 			
 
 				<label class="label bg4 color1 shaddow" for="email"><i class="fa fa-envelope"></i>&nbsp Email</label>
-				<input onKeyUp="checkEmail('email')" class="input shaddow" type="email" name="email" id="email" placeholder="*Email (aaa@aaa.sk)" >
+				<input onKeyUp="checkEmail('email')" class="input shaddow" type="email" name="email" id="email" placeholder="*Email (aaa@aaa.sk)" required >
 				
 
 				<label class="label bg4 color1 shaddow" for="password"><i class="fa fa-shield"></i>&nbsp Heslo</label>
-				<input onKeyUp="isPasswd('password')" class="input shaddow" type="password" name="password" id="password" placeholder="*Heslo (viac ako 6 znakov)" >
+				<input onKeyUp="isPasswd('password')" class="input shaddow" type="password" name="password" id="password" placeholder="*Heslo (viac ako 6 znakov)" required>
 
 				
 				<label class="label bg4 color1 shaddow" for="password2"><i class="fa fa-shield"></i>&nbsp Heslo</label>
-				<input onKeyUp="evalPasswd('password', 'password2')" class="input shaddow" type="password" name="password2" id="password2" placeholder="*Overenie hesla" > 	
+				<input onKeyUp="evalPasswd('password', 'password2')" class="input shaddow" type="password" name="password2" id="password2" placeholder="*Overenie hesla" required> 	
 
 				
 				<label class="label bg4 color1 shaddow" for="bio" style="height: 100px; line-height:100px;"><i class="fa fa-info"></i>&nbsp Bio</label>

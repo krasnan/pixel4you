@@ -34,18 +34,24 @@ print_header("register");
 			echo $userId . "<br>";
 			$albumId = albumToDb($userId, $name, true, "Obrzky profilu");
 			echo $albumId . "<br>";
+			echo $image["name"];
 			if (! empty($image["name"])) {
-				$image = imageUpload($image, "./uploads/", 5000000, $userId, $albumId, "", "profile");
-				echo $image . "<br>";
-				if ($image) {
-					userProfileImageChange($userId, $image);
+
+				$img = imageUpload($image, "", "./uploads/", 5000000, 1, $login,/* $album,*/ "Obrázok profilu", 1);
+				echo "image " . $img . "<br>";
+				if ($img != false) {
+
+					userProfileImageChange($userId, $img);
+					echo "profilova foto zmenena";
 				}
 				else{
 					userProfileImageChange($userId, "./img/default_profile_image.png");
+					echo "profilova foto nezmenena";
 				}
 			}
 			else{
 				userProfileImageChange($userId, "./img/default_profile_image.png");
+				echo "profilova foto nezmenena, chyba2";
 			}
 			
 
