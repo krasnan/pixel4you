@@ -1,7 +1,7 @@
 <?php
 include ("functions.php");
 include ("functionsDB.php");
-head("Pixel4You-rp1");
+head("Upload Pixel4You");
 print_header("upload");
 ?>
 
@@ -10,6 +10,16 @@ print_header("upload");
 
 <section>
 	<div class="container">
+
+	<?php
+	/*
+	* overenie ci je prihlaseny pouzivatel
+	* ak je prihlaseny tak vypis formular
+	* ak nieje prihlaseny vypis chybu
+	*/
+	if(isset($_SESSION["userId"])){
+	?>
+
 		<div class="ressult container"><?php if (isset($_GET['u'])) {
 			echo "Súbor s názvom '". $_GET['u'] . "' bol uložený.";
 			}?>
@@ -101,6 +111,14 @@ print_header("upload");
 			</div>
 		</form>
 
+	<?php
+
+	}
+	/*
+	* vypis chybu..
+	*/
+	else printNotSigned();
+	?>
 
 	</div>
 </section>

@@ -15,6 +15,7 @@ if ($conn = spoj_s_db()) {
 		$_SESSION["userId"] = $row["id"];
 		$_SESSION["userLogin"] = $row["login"];
 		$_SESSION["userName"] = $row["name"];
+		$_SESSION["userEmail"] = $row["email"];
 		$_SESSION["userSurname"] = $row["surname"];
 		$_SESSION["userBio"] = $row["bio"];
 		$_SESSION["userWebsites"] = $row["websites"];
@@ -27,6 +28,7 @@ if ($conn = spoj_s_db()) {
 
 	} 
 	else {
+
 	    mysqli_close($conn);
 	    header( "Location: ./" ); 
 	    return false;

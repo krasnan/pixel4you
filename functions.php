@@ -1,5 +1,8 @@
 <?php
 function head($title){
+	/*
+	* funkcia sluzi na vypisanie hlavicky html suboru s volaniami kaskadovych stylov, inicializaciou jQuery, ...
+	*/
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +15,7 @@ function head($title){
 
 
 
-<title>rocnikovy projekt 1</title>
+<title><?php echo $title;?></title>
 </head>
 
 <body class="bg6">
@@ -29,13 +32,23 @@ session_start();
 
 
 function print_header($active) {
+	/*
+	* funkcia vytlaci header stranky s navigaciou 
+	*/
 ?>
 <header class="shaddow bg5">
 	<div class="container padding">
 	
 		<div class="logo">
 			<a href="/"><img src="./img/header.png" alt="logo"></a>
-		</div>	
+		</div>
+		<div class="search">
+         	<div class="search_box_container">
+            	<input class="input bg7a color1" type="search" id="search_box" placeholder="search..." />
+            	<a class="button bg2"><i class="fa fa-search"></i></a>
+         	</div>
+      	</div>
+
 		<nav>
 			<?php 
 	    	if (isset($_SESSION["userLogin"])) {?>
@@ -60,6 +73,9 @@ printDropdown();
 
 
 function print_footer() {
+	/*
+	* funkcia vytlaci patu stranky
+	*/
 ?>
 
 <div class="wrapper"></div>
@@ -80,15 +96,13 @@ function print_footer() {
 
 
 function printDropdown(){
+	/*
+	* funkcia vytlaci dropdown menu
+	*/
 ?>
 <div id="dropdown_container" class="shaddow container color1 bg4">
 	<div id="dropdown">
-		<div class="search">
-         	<div class="search_box_container">
-            	<input class="input" type="search" id="search_box" placeholder="search..." />
-            	<a class="button"><i class="fa fa-search"></i></a>
-         	</div>
-      	</div>
+
       	<div class="filter ">
          	<div class="subcategory  color2">
             	Podkategória 1
@@ -140,6 +154,9 @@ function printDropdown(){
 
 
 function printRegistrationForm(){
+	/*
+	* registracny formular 
+	*/
 ?>
 		<form action="register.php" id="reg" class="form" method="POST" enctype="multipart/form-data">
 
@@ -206,5 +223,18 @@ function printRegistrationForm(){
 				<script type="text/javascript" src="./validations.js"></script>
 			</div>
 		</form>
+<?php
+}
+
+function PrintNotSigned(){
+/*
+* vypise chybovu hlasku ak nieje pouzivatel prihlaseny
+*/
+
+?>
+	<div class="error centered">
+		Chyba: Pre zobrazenie tejto stránky sa musíte prihlásiť.
+	</div>
+	
 <?php
 }

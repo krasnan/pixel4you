@@ -1,5 +1,4 @@
 <?php
-
 date_default_timezone_set("UTC");
 $servername = "localhost";
 $username = "root";
@@ -7,6 +6,11 @@ $password = "usbw";
 $dbname = "pixel4you";
 
 function spoj_s_db() {
+	/*
+	* Funkcia sluzi na pripojenie k databaze
+	* pri uspesnom pripojeni k databaze funkcia vracia vysledok mysqli_connect
+	* pri neuspesnom pripojeni vracia funkcia false
+	*/
 	if ($link = mysqli_connect('localhost', 'root', 'usbw', 'pixel4you')) {
 		mysqli_query($link,"SET CHARACTER SET 'utf8'"); 
 		return $link;
@@ -17,41 +21,78 @@ function spoj_s_db() {
 	}
 }
 
-function actualDate()
-{
+function actualDate(){
+	/*
+	* Vrati aktualny datum vo formate pre SQL databazu yyyy-mm-dd
+	*/
 	return date("Y-m-d");
 }
 
 function userToDB ($login, $passwd, $email, $name, $surname, $bio, $websites, $birthdate, $regdate){
+	/*
+	* funkcia na pridanie pouzivatela do DB pri registracii
+	* pri neuspesnom pripojeni k DB vrati false
+	* pri neuspesnom vlozeni do DB vrati false 
+	* pri uspesnom vlozeni pouzivatela vrati funkcia id tohto pouzivatela
+	*/
+/*
+	$result = $db->users()->insert((array(
+		"login"     => $login, 
+		"passwd"    => MD5('$passwd'), 
+		"email"     => $email, 
+		"name"      => $name, 
+		"surname"   => $surname, 
+		"bio"       => $bio, 
+		"websites"  => $websites, 
+		"birthdate" => $birthdate, 
+		"regdate"   => $regdate, 
+		"image"     => 0
+		)));
+	return true;
+
+*/
+
 	if ($conn = spoj_s_db()) {
 		
 		$sql = "INSERT INTO `users` 
 			(`id`, `login`, `passwd`, `email`, `name`, `surname`, `bio`, `websites`, `birthdate`, `regdate`, `image`) 
-			VALUES (NULL, '$login', MD5('$passwd'), '$email', '$name', '$surname', '$bio', '$websites', '$birthdate', '$regdate', 0)";
+			VALUES (NULL, '$login', MD5('$passwd'), '$email', '$name', '$surname', '$bio', 
+			'$websites', '$birthdate', '$regdate', 0)";
 
 		if (mysqli_query($conn, $sql)) {
-		    $last_id = mysqli_insert_id($conn);
-		    mysqli_close($conn);
-		    return $last_id;
+		    $last_id = mysqli_insert_id($conn); // nacitaj posledne id dopytu
+		    mysqli_close($conn); // ukonci pripojenie k DB
+		    return $last_id; // vrat id prave pridaneho pouzivatela 
 		} 
 		else {
-		    mysqli_close($conn);
+			// ak sa nepodari vlozenie do DB
+		    mysqli_close($conn); 
 		    return false;
 		}
 	}
 
 	else{
+		// ak sa nepodari connect na DB
 		die("Connection failed: " . mysqli_connect_error());
 		return false;
 	}
 } 
 
-function imageUpload($image, $name, $dir, $maxSize, $owner, $author,/* $album,*/ $describtion, $category)
-{
+function imageUpload($image, $name, $dir, $maxSize, $owner, $author,/* $album,*/ $describtion, $category){
+	/*
+	* funkcia sluzi na ulozenie obrazka na server a vlozenie informacii o nom do DB
+	* ak sa nepodari vlozit obrazok do DB vrat false
+	* inak vrat cestu k obrazku
+	* 
+	*/
+	
+
+	// over ci obrazok nieje prilis velky
 	if ($image["size"] > $maxSize) {
 		echo "Obrázok je príliš veľký, maximálna veľkosť obrázka je " . $maxSize . "B.";
 		return false;
 	}
+
 	$imageFileType = pathinfo($image["name"],PATHINFO_EXTENSION);
 
 	$filename = uniqid() . "." . $imageFileType;
@@ -65,20 +106,29 @@ function imageUpload($image, $name, $dir, $maxSize, $owner, $author,/* $album,*/
 	// ak sa ulozenie podari tak vrat cestu k suboru na serveri
 	if (move_uploaded_file($image["tmp_name"], $targetFile)) {
 		$thumb = createThumbnail($dir, $filename, $imageFileType, 300);
+
+		// vloz do DB
 		imageToDB($name, $targetFile, $owner, $author, $imageFileType, $thumb, $image["size"], /*$album, */$describtion, $category);
 
-
+		// vrat cestu k suboru na serveri 
 		return $targetFile;
 	}
 	else{
+		// ak sa nepodari vlozit vrat false
 		return false;
 	}
 
 }
 
 
-function imageToDB($name, $path, $owner, $author, $type, $thumb, $size,  /*$album,*/ $describtion, $category)
-{
+function imageToDB($name, $path, $owner, $author, $type, $thumb, $size,  /*$album,*/ $describtion, $category){
+	/*
+	* funkcia na vlozenie informacii o obrazku do DB 
+	* ak sa nepodari connect vrat false
+	* ak sa nepodari vykonat dopyt vrat false
+	* ak sa podari vlozit vrat id prave nahratej polozky
+	* 
+	*/
 	if ($conn = spoj_s_db()) {
 		$date = actualDate();
 
@@ -104,6 +154,11 @@ function imageToDB($name, $path, $owner, $author, $type, $thumb, $size,  /*$albu
 }
 
 function createThumbnail($img_dir, $filename, $filetype, $final_width_of_image) {
+	/*
+	* funkcia na vytvorenie miniatur nahravanych obrazkov
+	* ak je obrazok zleho typu tak vrat false
+	* ak sa podari vytvorit miniaturu, vloz ju do priecinka $img_dir a vrat cestu k tejto miniature
+	*/
 	$thumbs_dir = $img_dir . 'thumbs/';
 	     
     if($filetype == "jpg") {
@@ -206,8 +261,10 @@ function printAlbumsOptions($userId)
 	}
 }
 
-function printCategoryOptions()
-{
+function printCategoryOptions(){
+	/*
+	* vypise zoznam kategorii ako options
+	*/
 	if ($conn = spoj_s_db()) {
 		$sql = "SELECT * FROM `category` WHERE 1";
 
@@ -229,8 +286,11 @@ function printCategoryOptions()
 }
 
 
-function getUserUploads($userId = NULL)
-{
+function getUserUploads($userId = NULL){
+	/*
+	* vrati JSON 
+	* 
+	*/
 	if ($conn = spoj_s_db()) {
 		if ($userId != NULL) {
 			$sql = "SELECT * FROM `uploads` WHERE `owner` = '$userId'";
@@ -256,6 +316,51 @@ function getUserUploads($userId = NULL)
 	}
 }
 
+function deleteUserUpload($id, $ownerId){
+	if ($conn = spoj_s_db()) {
+		$sql = "SELECT * FROM  `uploads` WHERE  `id` =1 LIMIT 1";
+
+		$result = mysqli_query($conn, $sql);
+		if ($result) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$owner = $row['owner'];
+				$path = $row['path'];
+				$thumb = $row['thumb'];
+			}
+			mysqli_free_result($result);
+		}
+		if($owner == $ownerId){
+			$sql = "DELETE * FROM  `uploads` WHERE  `id` = 1 LIMIT 1";
+			$result = mysqli_query($conn, $sql);
+			if($result){
+				unlink($path);
+				unlink($thumb);
+				echo "Obrazok bol vymazany";
+			}
+			else{
+				echo "Obrazok sa nepodarlo vymazat";
+			}
+		}
+	}
+	else{
+		die("Connection failed: " . mysqli_connect_error());
+		return false;
+	}
+
+}
+
+function addLikes($id){
+	include_once "./connect.inc.php";
+	$image = $db->uploads[$id];
+	$image["likes"] = $image["likes"] + 1;
+	return $image->update();
+}
+function addDownloads($id){
+	include_once "./connect.inc.php";
+	$image = $db->uploads[$id];
+	$image["downloads"] = $image["downloads"] + 1;
+	return $image->update();
+}
 
 
 ?>

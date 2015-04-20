@@ -1,13 +1,16 @@
 <?php
 include ("functions.php");
 include ("functionsDB.php");
-head("Pixel4You-rp1");
+head("Profil Pixel4You");
 print_header("profile");
 ?>
 
 <section>
 	<div class="container">
 
+		<?php
+		if(isset($_SESSION["userId"])){
+		?>
 
 		<div class="user_info_container bg4 color1 shaddow">
 			<div class="user_info  ">
@@ -32,6 +35,9 @@ print_header("profile");
 				<div class="user_info_websites padding color1">
 					<a href="" class="color1" target="blank">www.nazov.stranky.com</a>
 				</div>
+				<div class="user_info_email padding color1">
+					<?php echo $_SESSION["userEmail"];?>
+				</div>
 			</div>
 		</div>
 
@@ -44,6 +50,13 @@ print_header("profile");
 			printMiniatures("20%", "180px");
 		</script>
 		
+
+		<?php
+		}
+		else printNotSigned();
+		?>
+
+
 	</div>
 </section>
 

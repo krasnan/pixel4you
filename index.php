@@ -1,7 +1,7 @@
 <?php
 include ("functions.php");
 include ("functionsDB.php");
-head("Pixel4You-rp1");
+head("Pixel4You");
 print_header("index");
 ?>
 

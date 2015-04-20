@@ -1,6 +1,6 @@
 <?php
 include ("functions.php");
-head("Pixel4You-rp1");
+head("Kontakt Pixel4You");
 print_header("kontakt");
 ?>
 

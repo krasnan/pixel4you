@@ -37,7 +37,7 @@ print_header("register");
 			echo $image["name"];
 			if (! empty($image["name"])) {
 
-				$img = imageUpload($image, "", "./uploads/", 5000000, 1, $login,/* $album,*/ "Obrázok profilu", 1);
+				$img = imageUpload($image, "", "./uploads/", 5000000, $userId, $login,/* $album,*/ "Obrázok profilu", 1);
 				echo "image " . $img . "<br>";
 				if ($img != false) {
 

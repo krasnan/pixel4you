@@ -44,7 +44,7 @@ header {
 	position:fixed;	
 	top:0px;
 	width: 100%;
-	height: 50px;
+	height: 55px;
 	color: white;
 	border-bottom: 15px solid #265f81;
 }
@@ -106,6 +106,7 @@ footer{
 	box-shadow:         0px 0px 15px 0px rgba(0, 0, 0, 0.75);
 }
 
+
 .container{
 	margin: 0 auto;
 	width: 1100px;
@@ -156,16 +157,19 @@ footer{
 	background-repeat: repeat;
 	background-position: top left;
 }
+.bg7a{
+	background-color: rgba(110,110,110,0.3);
+}
 
 .button {
 	cursor: pointer;
    	font-size: 100%;
-   	line-height: 40px;
+   	line-height: 35px;
    	padding: 0 2%;
    	display: inline-block;	
 	border: none;
 	vertical-align: middle;
-	height: 40px;
+	height: 35px;
 	
 	-o-transition:.2s ease-in-out;
   	-ms-transition:.2 ease-in-outs;
@@ -249,7 +253,9 @@ footer{
 .overlay{
 	background: rgba(0,0,0,0.5);
 }
-
+.image_min_fullscreen{
+	height: 100%;
+}
  .image_min_info{
  	opacity: 0;
  	position: absolute;
@@ -327,12 +333,14 @@ header:hover + #dropdown_container{
 
 
 .search{
+	position: relative;
+	left: 30%;
 	float: left;
-	width: 20%;
+	width: 40%;
 }
 .filter{
 	float: left;
-	width: 50%;
+	width: 70%;
 }
 .subcategory{
 	float: left;
@@ -377,7 +385,6 @@ header:hover + #dropdown_container{
 	opacity: 0;
 	width: 50px;
 	text-align: center;
-	background: #c9c9c9;
 	padding:0;
 	font-size: 80%;
 }
