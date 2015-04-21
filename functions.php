@@ -22,7 +22,7 @@ function head($title){
 
 <script src="jquery-2.1.3.min.js" ></script>
 <script src="./gallery.js"></script>
-
+<script src="./functionsJS.js"></script>
 <?php
 session_start();
 }
@@ -40,20 +40,20 @@ function print_header($active) {
 	<div class="container padding">
 	
 		<div class="logo">
-			<a href="/"><img src="./img/header.png" alt="logo"></a>
+			<a href="./"><img src="./img/header.png" alt="logo"></a>
 		</div>
 		<div class="search">
          	<div class="search_box_container">
-            	<input class="input bg7a color1" type="search" id="search_box" placeholder="search..." />
-            	<a class="button bg2"><i class="fa fa-search"></i></a>
+            	<input class="input bg7a color1" type="search" id="search_box" placeholder="search..." <?php if(isset($_GET["search"])) echo "value='".$_GET["search"]."'";?>/>
+            	<a class="button bg2"  onclick="mySearch()"><i class="fa fa-search"></i></a>
          	</div>
       	</div>
 
 		<nav>
 			<?php 
-	    	if (isset($_SESSION["userLogin"])) {?>
+	    	if (isset($_SESSION["user"]["login"])) {?>
 				<a <?php if($active == "upload"){echo 'class="active"';} ?> href="upload.php" title="Upload" class="color1"><i class="fa fa-upload fa-2x"></i></a>
-				<a <?php if($active == "profile"){echo 'class="active"';} ?> href="profile.php" title="My Profile" class="color1"><i class="fa fa-user fa-2x"></i></a>
+				<a <?php if($active == "profile"){echo 'class="active"';} ?> href="profile.php?user=<?php echo $_SESSION["user"]["login"];?>" title="My Profile" class="color1"><i class="fa fa-user fa-2x"></i></a>
 			
 			<?php
 			}
@@ -102,21 +102,22 @@ function printDropdown(){
 ?>
 <div id="dropdown_container" class="shaddow container color1 bg4">
 	<div id="dropdown">
+		<div class="filter">
 
-      	<div class="filter ">
          	<div class="subcategory  color2">
-            	Podkategória 1
-	            <br>
-	            <a href="" class="category color1">kategoria 1</a><br>
+            	<p>Podkategória 1</p>
+
+	            <a class="category color1">kategoria 1</a><br>
 	            <a href="" class="category color1">kategoria 2</a><br>
 	            <a href="" class="category color1">kategoria 3</a><br>
 	            <a href="" class="category color1">kategoria 4</a><br>
-	            <a href="" class="category color1">kategoria 5</a><br><br>
+	            <a href="" class="category color1">kategoria 5</a><br>
+	            </p>
 
          	</div>
 	        <div class="subcategory  color2">
-	            Podkategória 2
-	            <br>
+	            <p>Podkategória 2</p>
+
 	            <a href="" class="category color1">kategoria 1</a><br>
 	            <a href="" class="category color1">kategoria 2</a><br>
 	            <a href="" class="category color1">kategoria 3</a><br>
@@ -126,23 +127,23 @@ function printDropdown(){
 	    </div>
 	    <div class="login">
 	    	<?php 
-	    	if (isset($_SESSION["userLogin"])) {
-	    		echo "<div class='right'>" . $_SESSION["userName"] . " " . $_SESSION["userSurname"] . "</div><br><br>";
-	    		echo '		        <a id="logout" href="./logout.php" class="button bg1 color2 right">Odhlásiť</a>';
+	    	if (isset($_SESSION["user"]["login"])) {
+	    		echo  "<div class='right'>" .$_SESSION["user"]["name"] . " " . $_SESSION["user"]["surname"] . "</div>";
+	    		echo '<a id="logout" href="./logout.php" class="button bg1 color2 right login_button">Odhlásiť</a>';
 	    	}
 	    	else{
 	    	?>
-		    <form id="login" method="POST" action="login.php">
+		    <form id="login" method="POST">
 		        <label for="login_name" >Prihlasovacie meno:</label>
 		        <input id="login_name" name="login_name" class="input" type="text" placeholder="login" required>
 		        <label for="login_passwd" >Prihlasovacie heslo:</label>
 		        <input id="login_passwd" name="login_passwd" class="input" type="password" required placeholder="password">
-		        
-		        <a id="login_button_reg" href="./register.php" class="button bg1 color2">Registrovať</a>
-		        <input id="login_button_log" type="submit" class="button bg1 color2 right" name="submit" value="Prihlásiť">
-
+		        <div id="loginResult" class="error"></div>
+		        <a href="./register.php" class="button bg1 color2 login_button">Registrovať</a>
+		        <a onclick="loginUser()" class="button bg1 color2 right login_button">Prihlásiť</a>
 		    </form>
-			<?php 
+		    <?php 
+			
 			}
 			?>
 

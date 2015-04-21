@@ -826,5 +826,13 @@ class NotORM_Result extends NotORM_Abstract implements Iterator, ArrayAccess, Co
 			return $this->data;
 		}
 	}
+
+	function result() { 
+		return (Object)$this->result_array(); 
+	}
+	function result_array() {
+	    foreach($this as $row) {    $ret[] = iterator_to_array($row);   }
+	    return $ret;
+	}
 	
 }

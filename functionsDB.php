@@ -264,59 +264,57 @@ function printAlbumsOptions($userId)
 function printCategoryOptions(){
 	/*
 	* vypise zoznam kategorii ako options
-	*/
-	if ($conn = spoj_s_db()) {
-		$sql = "SELECT * FROM `category` WHERE 1";
-
-		$result = mysqli_query($conn, $sql);
-		if ($result) {
-			while ($row = mysqli_fetch_assoc($result)) {
-
-				echo "<option value='" . $row['id'] . "'";
-				if ($row['id'] == 1) { echo "selected";}
-				echo '>' . $row['name'] . "</option>\n";
-			}
-			mysqli_free_result($result);
-		}
-	}
-	else{
-		die("Connection failed: " . mysqli_connect_error());
-		return false;
+	* 
+	*/	
+	include_once "./connect.inc.php";
+	foreach ($db->category() as $opt) {
+		echo "<option value='" . $opt['id'] . "'";
+		if ($opt['id'] == 1) { echo "selected";}
+		echo '>' . $opt['name'] . "</option>\n";
 	}
 }
 
-
-function getUserUploads($userId = NULL){
+function getUserData($login){
 	/*
-	* vrati JSON 
+	* funkcia ktora vyberie informacie o danom pouzivatelovi z databazy 
+	* 
+	* 
+	* vrati asociativne pole s informaciami o pouzivatelovi
+	*/ 
+	include_once "./connect.inc.php";
+	$user = $db->users()->where("login",$login)->fetch();
+	return iterator_to_array($user);
+
+}
+
+function getUploads(){
+	/*
+	* funkcia sluzi na select vsetkych diel pouzivatelov, 
+	* je tu implementovane triedenie hladanie a zobrazovanie diel od konkretneho uzivatela
+	* 
+	* 
+	* vypise JSON format vysledneho resultu
 	* 
 	*/
-	if ($conn = spoj_s_db()) {
-		if ($userId != NULL) {
-			$sql = "SELECT * FROM `uploads` WHERE `owner` = '$userId'";
-		}
-		else{
-			$sql = "SELECT * FROM `uploads` WHERE 1";
-		}
-		
+	include_once "./connect.inc.php";
 
-		$result = mysqli_query($conn, $sql);
-		if ($result) {
-			$rows = array();
-			while ($row = mysqli_fetch_assoc($result)) {
-				$rows[] = $row;
-			}
-			mysqli_free_result($result);
-			print json_encode($rows);
-		}
+	$uploads = $db->uploads();
+	if (isset($_GET["user"])) {
+		$uploads = $uploads->where("author", $_GET["user"]);
 	}
-	else{
-		die("Connection failed: " . mysqli_connect_error());
-		return false;
+	if (isset($_GET["search"])) {
+		$uploads = $uploads->where("name LIKE ?", "%".$_GET["search"]."%");
 	}
+	/*if (isset($_GET["category"])) {
+		$uploads = $uploads->where("category", $_GET["category"]);
+	}*/
+
+	print json_encode($uploads->result_array());
 }
 
 function deleteUserUpload($id, $ownerId){
+
+	
 	if ($conn = spoj_s_db()) {
 		$sql = "SELECT * FROM  `uploads` WHERE  `id` =1 LIMIT 1";
 
@@ -350,17 +348,26 @@ function deleteUserUpload($id, $ownerId){
 }
 
 function addLikes($id){
+	/*
+	* funkcia na pridavanie likov do databazy 
+	* 
+	* vrati true ak sa obrazok podarilo liknut
+	*/
 	include_once "./connect.inc.php";
 	$image = $db->uploads[$id];
 	$image["likes"] = $image["likes"] + 1;
 	return $image->update();
 }
 function addDownloads($id){
+	/*
+	* funkcia na pridavanie poctu stiahnuti do databazy
+	*
+	* 
+	* vrati true ak sa podarilo zvysit pocet likov
+	*/
 	include_once "./connect.inc.php";
 	$image = $db->uploads[$id];
 	$image["downloads"] = $image["downloads"] + 1;
 	return $image->update();
 }
-
-
 ?>

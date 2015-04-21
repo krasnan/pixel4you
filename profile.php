@@ -3,25 +3,32 @@ include ("functions.php");
 include ("functionsDB.php");
 head("Profil Pixel4You");
 print_header("profile");
+
 ?>
 
 <section>
 	<div class="container">
-
 		<?php
-		if(isset($_SESSION["userId"])){
+
+		if (isset($_GET["user"])) {
+			$userInfo = getUserData($_GET["user"]);
+		}
+		elseif (isset($_SESSION["user"])) {
+			$userInfo = $_SESSION["user"];
+		}
+		if(isset($userInfo)){
 		?>
 
 		<div class="user_info_container bg4 color1 shaddow">
 			<div class="user_info  ">
 				<div class="user_info_image">
-					<img src="<?php echo $_SESSION["userImage"]?>">
+					<img src="<?php echo $userInfo["image"]?>">
 				</div>
 				<div class="user_info_nick  padding bg5 color3">
-					#<?php echo $_SESSION["userLogin"];?>
+					#<?php echo $userInfo["login"];?>
 				</div>
 				<div class="user_info_name_surname padding">
-					<?php echo $_SESSION["userName"] . " " . $_SESSION["userSurname"];?>	
+					<?php echo $userInfo["name"] . " " . $userInfo["surname"];?>	
 				</div>
 				<div class="user_info_focus padding">
 					zameranie autora
@@ -30,13 +37,13 @@ print_header("profile");
 					bio:
 				</div>
 				<div class="user_info_bio padding">
-					<?php echo $_SESSION["userBio"];?>
+					<?php echo $userInfo["bio"];?>
 				</div>
 				<div class="user_info_websites padding color1">
 					<a href="" class="color1" target="blank">www.nazov.stranky.com</a>
 				</div>
 				<div class="user_info_email padding color1">
-					<?php echo $_SESSION["userEmail"];?>
+					<?php echo $userInfo["email"];?>
 				</div>
 			</div>
 		</div>
@@ -44,7 +51,7 @@ print_header("profile");
 
 
 		<script>
-			var myImages = 	<?php getUserUploads($_SESSION["userId"]);	?>;
+			var myImages = 	<?php getUploads();	?>;
 
 			printImageMaxContainer();
 			printMiniatures("20%", "180px");

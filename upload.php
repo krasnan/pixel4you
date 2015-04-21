@@ -17,7 +17,7 @@ print_header("upload");
 	* ak je prihlaseny tak vypis formular
 	* ak nieje prihlaseny vypis chybu
 	*/
-	if(isset($_SESSION["userId"])){
+	if(isset($_SESSION["user"])){
 	?>
 
 		<div class="ressult container"><?php if (isset($_GET['u'])) {

@@ -9,7 +9,7 @@ print_header("index");
 	<div class="container">
 
 		<script>
-			var myImages = 	<?php getUserUploads();	?>;
+			var myImages = 	<?php getUploads();	?>;
 			printImageMaxContainer();
 			printMiniatures();
 		</script>
