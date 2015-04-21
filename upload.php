@@ -1,8 +1,9 @@
 <?php
-include ("functions.php");
-include ("functionsDB.php");
+include_once "./connect.inc.php";
+include ("./functions.php");
+include ("./functionsDB.php");
 head("Upload Pixel4You");
-print_header("upload");
+print_header($db,"upload");
 ?>
 
 
@@ -67,7 +68,7 @@ print_header("upload");
 				<label class="label bg4 color1 shaddow" for="selectCategory"><i class="fa fa-toggle-down"></i>&nbsp Kategória</label>
 				<select class="select shaddow" id="selectCategory" name="category" required>
 					<?php
-					printCategoryOptions($_SESSION["userId"]);
+					printCategoryOptions($db);
 					?>
 				</select>
 

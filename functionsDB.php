@@ -5,6 +5,7 @@ $username = "root";
 $password = "usbw";
 $dbname = "pixel4you";
 
+
 function spoj_s_db() {
 	/*
 	* Funkcia sluzi na pripojenie k databaze
@@ -28,17 +29,17 @@ function actualDate(){
 	return date("Y-m-d");
 }
 
-function userToDB ($login, $passwd, $email, $name, $surname, $bio, $websites, $birthdate, $regdate){
+function userToDB ($db,$login, $passwd, $email, $name, $surname, $bio, $websites, $birthdate, $regdate){
 	/*
 	* funkcia na pridanie pouzivatela do DB pri registracii
 	* pri neuspesnom pripojeni k DB vrati false
 	* pri neuspesnom vlozeni do DB vrati false 
 	* pri uspesnom vlozeni pouzivatela vrati funkcia id tohto pouzivatela
 	*/
-/*
+
 	$result = $db->users()->insert((array(
 		"login"     => $login, 
-		"passwd"    => MD5('$passwd'), 
+		"passwd"    => hash("sha512",$passwd), 
 		"email"     => $email, 
 		"name"      => $name, 
 		"surname"   => $surname, 
@@ -48,9 +49,9 @@ function userToDB ($login, $passwd, $email, $name, $surname, $bio, $websites, $b
 		"regdate"   => $regdate, 
 		"image"     => 0
 		)));
-	return true;
+	return $result;
 
-*/
+/*
 
 	if ($conn = spoj_s_db()) {
 		
@@ -75,7 +76,7 @@ function userToDB ($login, $passwd, $email, $name, $surname, $bio, $websites, $b
 		// ak sa nepodari connect na DB
 		die("Connection failed: " . mysqli_connect_error());
 		return false;
-	}
+	}*/
 } 
 
 function imageUpload($image, $name, $dir, $maxSize, $owner, $author,/* $album,*/ $describtion, $category){
@@ -261,56 +262,6 @@ function printAlbumsOptions($userId)
 	}
 }
 
-function printCategoryOptions(){
-	/*
-	* vypise zoznam kategorii ako options
-	* 
-	*/	
-	include_once "./connect.inc.php";
-	foreach ($db->category() as $opt) {
-		echo "<option value='" . $opt['id'] . "'";
-		if ($opt['id'] == 1) { echo "selected";}
-		echo '>' . $opt['name'] . "</option>\n";
-	}
-}
-
-function getUserData($login){
-	/*
-	* funkcia ktora vyberie informacie o danom pouzivatelovi z databazy 
-	* 
-	* 
-	* vrati asociativne pole s informaciami o pouzivatelovi
-	*/ 
-	include_once "./connect.inc.php";
-	$user = $db->users()->where("login",$login)->fetch();
-	return iterator_to_array($user);
-
-}
-
-function getUploads(){
-	/*
-	* funkcia sluzi na select vsetkych diel pouzivatelov, 
-	* je tu implementovane triedenie hladanie a zobrazovanie diel od konkretneho uzivatela
-	* 
-	* 
-	* vypise JSON format vysledneho resultu
-	* 
-	*/
-	include_once "./connect.inc.php";
-
-	$uploads = $db->uploads();
-	if (isset($_GET["user"])) {
-		$uploads = $uploads->where("author", $_GET["user"]);
-	}
-	if (isset($_GET["search"])) {
-		$uploads = $uploads->where("name LIKE ?", "%".$_GET["search"]."%");
-	}
-	/*if (isset($_GET["category"])) {
-		$uploads = $uploads->where("category", $_GET["category"]);
-	}*/
-
-	print json_encode($uploads->result_array());
-}
 
 function deleteUserUpload($id, $ownerId){
 
@@ -347,27 +298,97 @@ function deleteUserUpload($id, $ownerId){
 
 }
 
-function addLikes($id){
+function addLikes($db,$id){
 	/*
 	* funkcia na pridavanie likov do databazy 
 	* 
 	* vrati true ak sa obrazok podarilo liknut
 	*/
-	include_once "./connect.inc.php";
 	$image = $db->uploads[$id];
 	$image["likes"] = $image["likes"] + 1;
 	return $image->update();
 }
-function addDownloads($id){
+function addDownloads($db,$id){
 	/*
 	* funkcia na pridavanie poctu stiahnuti do databazy
 	*
 	* 
 	* vrati true ak sa podarilo zvysit pocet likov
 	*/
-	include_once "./connect.inc.php";
 	$image = $db->uploads[$id];
 	$image["downloads"] = $image["downloads"] + 1;
 	return $image->update();
 }
+
+function printCategoryOptions($db){
+	/*
+	* vypise zoznam kategorii ako options
+	* 
+	*/	
+	include_once "./connect.inc.php";
+	foreach ($db->category() as $opt) {
+		echo "<option value='" . $opt['id'] . "'";
+		if ($opt['id'] == 1) { echo "selected";}
+		echo '>' . $opt['name'] . "</option>\n";
+	}
+}
+
+function getUserData($db,$login){
+	/*
+	* funkcia ktora vyberie informacie o danom pouzivatelovi z databazy 
+	* 
+	* 
+	* vrati asociativne pole s informaciami o pouzivatelovi
+	*/ 
+
+	$user = $db->users()->where("login",$login)->fetch();
+
+	$userInfo = iterator_to_array($user);
+
+
+	return $userInfo;
+}
+
+function getUploads($db){
+	/*
+	* funkcia sluzi na select vsetkych diel pouzivatelov, 
+	* je tu implementovane triedenie hladanie a zobrazovanie diel od konkretneho uzivatela
+	* 
+	* 
+	* vypise JSON format vysledneho resultu
+	* 
+	*/
+
+	$uploads = $db->uploads();
+	if (isset($_GET["user"])) {
+		$uploads = $uploads->where("author", $_GET["user"]);
+	}
+	if (isset($_GET["search"])) {
+		$uploads = $uploads->where("name LIKE ?", "%".$_GET["search"]."%");
+	}
+	if (isset($_GET["category"])) {
+		$uploads = $uploads->where("category", $_GET["category"]);
+	}
+	foreach($uploads as $row) {    
+		$res[] = iterator_to_array($row);   
+	}
+	print json_encode($res);
+}
+function printCategories($db,$columns){
+	$cat = $db->category()->order("name ASC")->select("id", "name");
+	$i=0;
+	$newcol = (int) ($cat->count()/$columns + 0.5) ;
+
+	echo '<div class="subcategory  color2">';
+	foreach ($cat as $category) {
+		if($newcol == $i){
+			echo '</div><div class="subcategory  color2">'; 
+			$i=0;
+		}
+		echo "<a onclick='setCategory(". $category["id"] .")' class='category color1'>".$category["name"] ."</a><br>";
+		$i++;
+	}
+	echo "</div>";
+}
+
 ?>

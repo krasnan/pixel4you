@@ -4,7 +4,7 @@ function showMaximized(index){
 	_index = index;
     document.getElementById("image_max_container").style.display = 'block'; 
     document.getElementById('image_container').innerHTML = ('<img id="img_actual" src="'+ myImages[_index].path + '">' ); 
-    $('#image_info').replaceWith('<div id="image_info"><a href="">@ ' + myImages[_index].author + ' </a> | <a href=""> ' + myImages[_index].imgName + ' </a> <p>' + myImages[_index].imgDescription + ' </p></div>');
+	$('#image_info').replaceWith('<div id="image_info"><a href="./profile.php?user=' + myImages[_index].author + '">@ ' + myImages[_index].author + ' </a> | <a> ' + myImages[_index].name + ' </a> <p>' + myImages[_index].describtion + ' </p></div>');
     $('#image_max_download').attr("href", myImages[_index].path);
     $("#image_max_like").attr("onclick", "likeImage("+myImages[_index].id+")");
 
@@ -42,7 +42,7 @@ function galeryExit(){
 	$("#img_actual").animate({opacity: '0',maxHeight: '130%',maxWidth: '120%', marginTop: "-5%"},200,function(){
    		$('#img_actual').replaceWith('<img id="img_actual" style="display:none" src="'+ myImages[_index].path + '">' );
 		$('#image_max_download').attr("href", myImages[_index].path);
-		$('#image_info').replaceWith('<div id="image_info"><a href="">@ ' + myImages[_index].author + ' </a> | <a href=""> ' + myImages[_index].imgName + ' </a> <p>' + myImages[_index].imgDescription + ' </p></div>');
+		$('#image_info').replaceWith('<div id="image_info"><a href="./profile.php?user=' + myImages[_index].author + '">@ ' + myImages[_index].author + ' </a> | <a> ' + myImages[_index].name + ' </a> <p>' + myImages[_index].describtion + ' </p></div>');
     	$("#img_actual").fadeIn(500);
     	$("#image_max_like").attr("onclick", "likeImage("+myImages[_index].id+")");
     });
@@ -58,7 +58,7 @@ function galeryBack(){
     $("#img_actual").animate({opacity: '0',maxHeight: '70%',maxWidth: '70%'},200,function(){
    		$('#img_actual').replaceWith('<img id="img_actual" style="display:none" src="'+ myImages[_index].path + '">' );
 		$('#image_max_download').attr("href", myImages[_index].path);
-		$('#image_info').replaceWith('<div id="image_info"><a href="">@ ' + myImages[_index].author + ' </a> | <a href=""> ' + myImages[_index].imgName + ' </a> <p>' + myImages[_index].imgDescription + ' </p></div>');
+		$('#image_info').replaceWith('<div id="image_info"><a href="./profile.php?user=' + myImages[_index].author + '">@ ' + myImages[_index].author + ' </a> | <a> ' + myImages[_index].name + ' </a> <p>' + myImages[_index].describtion + ' </p></div>');
     	$("#img_actual").fadeIn(500);
     	$("#image_max_like").attr("onclick", "likeImage("+myImages[_index].id+")");
     });
@@ -87,7 +87,7 @@ function printMiniatures(width, height){
 		<div class="image_min_container shaddow" style="width: ' + width + '; height:' + height + '"> \
 			<img src="'+ myImages[i].thumb +'" alt="'+ myImages[i].name +'"> \
 			<div class="image_min_info overlay" > \
-				<a onclick="" title="Show user profile" class="image_min_author color1"><i class="fa fa-user"></i> '+ myImages[i].author +'</a> \
+				<a href="./profile.php?user=' + myImages[i].author + '" title="Show user profile" class="image_min_author color1"><i class="fa fa-user"></i> '+ myImages[i].author +'</a> \
 				<a onclick="" title="Open image" class="image_min_name color1"><i class="fa fa-tag"></i> '+ myImages[i].name +'</a> \
 				<div title="Maximize image" class="image_min_fullscreen color1" onclick="showMaximized('+ i +')"></div> \
 				<div class="image_min_buttons"> \

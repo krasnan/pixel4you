@@ -39,22 +39,11 @@ function urlAdd(key, value){
 	else {
 	    return uri + separator + key + "=" + value;
 	}
+}
 
-
-
-	/*
-	if(url.indexOf("?") < 0){
-		return url + "?" + variable + "=" + value;
-	}
-	var sindex = url.indexOf(variable);
-	if (sindex < 0) {
-		return url + "&" + variable + "=" + value;
-	}
-	else{
-		var prefix = url.substring(0,sindex);
-		var sufix = url.substring(sindex,url.length);
-
-	}*/
-
-
+function setCategory(cat){
+	location.replace(urlAdd("category", cat));
+}
+function setUser(user){
+	location.replace(urlAdd("user", user));
 }

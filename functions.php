@@ -1,4 +1,5 @@
 <?php
+
 function head($title){
 	/*
 	* funkcia sluzi na vypisanie hlavicky html suboru s volaniami kaskadovych stylov, inicializaciou jQuery, ...
@@ -21,8 +22,9 @@ function head($title){
 <body class="bg6">
 
 <script src="jquery-2.1.3.min.js" ></script>
-<script src="./gallery.js"></script>
 <script src="./functionsJS.js"></script>
+<script src="./gallery.js"></script>
+
 <?php
 session_start();
 }
@@ -31,7 +33,7 @@ session_start();
 
 
 
-function print_header($active) {
+function print_header($db,$active) {
 	/*
 	* funkcia vytlaci header stranky s navigaciou 
 	*/
@@ -67,7 +69,7 @@ function print_header($active) {
 </header>
 
 <?php
-printDropdown();
+printDropdown($db);
 }
 
 
@@ -95,7 +97,7 @@ function print_footer() {
 
 
 
-function printDropdown(){
+function printDropdown($db){
 	/*
 	* funkcia vytlaci dropdown menu
 	*/
@@ -103,27 +105,10 @@ function printDropdown(){
 <div id="dropdown_container" class="shaddow container color1 bg4">
 	<div id="dropdown">
 		<div class="filter">
+		<?php
 
-         	<div class="subcategory  color2">
-            	<p>Podkategória 1</p>
-
-	            <a class="category color1">kategoria 1</a><br>
-	            <a href="" class="category color1">kategoria 2</a><br>
-	            <a href="" class="category color1">kategoria 3</a><br>
-	            <a href="" class="category color1">kategoria 4</a><br>
-	            <a href="" class="category color1">kategoria 5</a><br>
-	            </p>
-
-         	</div>
-	        <div class="subcategory  color2">
-	            <p>Podkategória 2</p>
-
-	            <a href="" class="category color1">kategoria 1</a><br>
-	            <a href="" class="category color1">kategoria 2</a><br>
-	            <a href="" class="category color1">kategoria 3</a><br>
-	            <a href="" class="category color1">kategoria 4</a><br>
-	            <a href="" class="category color1">kategoria 5</a><br><br>
-	        </div>
+			printCategories($db,3);
+		?>
 	    </div>
 	    <div class="login">
 	    	<?php 

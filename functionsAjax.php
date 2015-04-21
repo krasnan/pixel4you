@@ -1,15 +1,15 @@
 <?php
 include("functionsDB.php");
-
+include_once "./connect.inc.php";
 $func = $_POST["func"];
 
 switch ($func) {
 	case 'addLike':
-		echo addLikes($_POST["id"]);
+		echo addLikes($db,$_POST["id"]);
 		break;
 	
 	case 'addDownload':
-		echo addDownloads($_POST["id"]);
+		echo addDownloads($db,$_POST["id"]);
 		break;
 
 	default:

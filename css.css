@@ -349,10 +349,11 @@ header:hover + #dropdown_container{
 	display: block;
 	min-width: 150px;
 	float: left;
-	margin: 0 20px 0 20px;
+	margin: 0 20px 20px 20px;
 }
 .category{
 	font-size: 80%;
+	cursor: pointer;
 }
 
 .login{
@@ -448,7 +449,7 @@ header:hover + #dropdown_container{
 }
 
 .error{
-	font-size: 90%;
+	font-size: 80%;
 	color: #FC2020;
 }
 

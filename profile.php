@@ -1,17 +1,23 @@
 <?php
+include_once "./connect.inc.php";
 include ("functions.php");
 include ("functionsDB.php");
 head("Profil Pixel4You");
-print_header("profile");
+print_header($db,"profile");
 
 ?>
+
+<script>var myImages = 	<?php getUploads($db);	?>;</script>
 
 <section>
 	<div class="container">
 		<?php
 
+		
+
+
 		if (isset($_GET["user"])) {
-			$userInfo = getUserData($_GET["user"]);
+			$userInfo = getUserData($db,$_GET["user"]);
 		}
 		elseif (isset($_SESSION["user"])) {
 			$userInfo = $_SESSION["user"];
@@ -51,7 +57,6 @@ print_header("profile");
 
 
 		<script>
-			var myImages = 	<?php getUploads();	?>;
 
 			printImageMaxContainer();
 			printMiniatures("20%", "180px");

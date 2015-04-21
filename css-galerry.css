@@ -152,6 +152,7 @@
 	margin: auto;
 }
 #image_info p{
+    text-align: center;
 	font-size: 70%;
 }
 

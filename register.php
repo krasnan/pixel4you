@@ -1,8 +1,10 @@
 <?php
+include_once "./connect.inc.php";
 include ("functions.php");
+include ("functionsDB.php");
 head("Pixel4You-rp1");
 header('Content-type: charset=utf-8');
-print_header("register");
+print_header($db,"register");
 ?>
 
 <script type="text/javascript" src="./validations.js"></script>
@@ -13,7 +15,7 @@ print_header("register");
 
 		<?php
 		if (isset($_POST["submit"])) {
-			include("./functionsDB.php");
+
 
 			$login = mysql_real_escape_string(trim(strtolower($_POST['reg_login'])));
 		    $passwd = mysql_real_escape_string(trim($_POST['password']));
@@ -30,10 +32,10 @@ print_header("register");
 
 
 			
-			$userId = userToDB ($login, $passwd, $email, $name, $surname, $bio, $websites, $birthdate, $regdate);
+			$userId = userToDB ($db,$login, $passwd, $email, $name, $surname, $bio, $websites, $birthdate, $regdate);
 			echo $userId . "<br>";
-			$albumId = albumToDb($userId, $name, true, "Obrzky profilu");
-			echo $albumId . "<br>";
+			//$albumId = albumToDb($userId, $name, true, "Obrzky profilu");
+			//echo $albumId . "<br>";
 			echo $image["name"];
 			if (! empty($image["name"])) {
 
