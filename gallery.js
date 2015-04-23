@@ -7,6 +7,7 @@ function showMaximized(index){
 	$('#image_info').replaceWith('<div id="image_info"><a href="./profile.php?user=' + myImages[_index].author + '">@ ' + myImages[_index].author + ' </a> | <a> ' + myImages[_index].name + ' </a> <p>' + myImages[_index].describtion + ' </p></div>');
     $('#image_max_download').attr("href", myImages[_index].path);
     $("#image_max_like").attr("onclick", "likeImage("+myImages[_index].id+")");
+    window.history.pushState({},myImages[_index].name,urlAdd("image",myImages[_index].id));
 
   }
 
@@ -27,6 +28,7 @@ function showMaximized(index){
 
 function galeryExit(){
 	document.getElementById("image_max_container").style.display = 'none';
+	
 	galerySlideshowStop();
 	exitFullscreen();
 }

@@ -30,7 +30,7 @@ print_header($db,"upload");
 		<form action="upload_file.php" id="form" class="form" method="POST" enctype="multipart/form-data">
 
 			<div id="img_cont" class="left">
-				<img id="img_preview" src="./img/default_profile_image.png" class="shaddow bg4" alt="1.jpg">
+				<label for="input_f"><img id="img_preview" src="./img/default_profile_image.png" class="shaddow bg4" alt="1.jpg"></label>
 				
 				<label class="label bg4 color1 shaddow" for="input_f"><i class="fa fa-image"></i></label>
 			

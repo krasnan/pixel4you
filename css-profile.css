@@ -2,7 +2,7 @@
 	width: 31%;
 	float: left;
 	margin: 1%;
-	min-height: 420px;
+	min-height: 100vh;
 }
 .user_info_image{
 	min-height: 240px;

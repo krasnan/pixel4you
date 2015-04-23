@@ -39,20 +39,20 @@ print_header($db,"register");
 			echo $image["name"];
 			if (! empty($image["name"])) {
 
-				$img = imageUpload($image, "", "./uploads/", 5000000, $userId, $login,/* $album,*/ "Obrázok profilu", 1);
+				$img = imageUpload($db, $image, "Obrázok profilu", "./uploads/", 5000000, $userId, $login,/* $album,*/ "Obrázok profilu", 1);
 				echo "image " . $img . "<br>";
 				if ($img != false) {
 
-					userProfileImageChange($userId, $img);
+					userProfileImageChange($db,$userId, $img);
 					echo "profilova foto zmenena";
 				}
 				else{
-					userProfileImageChange($userId, "./img/default_profile_image.png");
+					userProfileImageChange($db,$userId, "./img/default_profile_image.png");
 					echo "profilova foto nezmenena";
 				}
 			}
 			else{
-				userProfileImageChange($userId, "./img/default_profile_image.png");
+				userProfileImageChange($db,$userId, "./img/default_profile_image.png");
 				echo "profilova foto nezmenena, chyba2";
 			}
 			

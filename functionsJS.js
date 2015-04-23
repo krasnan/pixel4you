@@ -47,3 +47,35 @@ function setCategory(cat){
 function setUser(user){
 	location.replace(urlAdd("user", user));
 }
+
+
+
+$("form#ajaxForm").submit(function(event){
+ 
+  //vypne defaultne spravanie submitu
+	event.preventDefault();
+	 
+	//zoberie vsetky data z formulara
+	var formData = new FormData($(this)[0]);
+
+	//ulozi url kam ma posielat
+	//var formUrl = $(this).attr("action");
+	
+	$.ajax({
+    	url: "profile_save.php",
+	    type: 'POST',
+	    data: formData,
+	    async: false,
+	    cache: false,
+	    contentType: false,
+	    processData: false,
+	    success: function (returndata) {
+      		alert(returndata);
+    	},
+    	error: function(returndata){
+    		alert(returndata);
+    	}
+  });
+ 
+  return false;
+});

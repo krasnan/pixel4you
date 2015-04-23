@@ -161,6 +161,12 @@ footer{
 .bg7a{
 	background-color: rgba(110,110,110,0.3);
 }
+.bg1error{
+	background: #FC2020;
+}
+.bg1success{
+	background-color: green;
+}
 
 .button {
 	cursor: pointer;
@@ -183,6 +189,13 @@ footer{
 		background-color: #00baff;
 		color: black;
 }
+.buttonCancel:hover{
+	background-color: #FC2020;
+}
+.buttonOk:hover{
+	background-color: green;
+}
+
 
 .left{
 	float: left;
@@ -372,7 +385,10 @@ header:hover + #dropdown_container{
 .login_button{
 	margin-top: 20px;
 	margin-bottom: 20px;
-}/*
+
+}
+
+/*
 .login a:last-child{
 	float: right;
 }
@@ -452,7 +468,15 @@ header:hover + #dropdown_container{
 	font-size: 80%;
 	color: #FC2020;
 }
+.success{
+	color: #09CD09;
+}
+
 
 #loginResult{
 	height: 20px;
+}
+#ajaxResult{
+	min-width: 100%;
+	margin-bottom: 20px;
 }

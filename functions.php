@@ -113,8 +113,9 @@ function printDropdown($db){
 	    <div class="login">
 	    	<?php 
 	    	if (isset($_SESSION["user"]["login"])) {
-	    		echo  "<div class='right'>" .$_SESSION["user"]["name"] . " " . $_SESSION["user"]["surname"] . "</div>";
-	    		echo '<a id="logout" href="./logout.php" class="button bg1 color2 right login_button">Odhlásiť</a>';
+	    		echo  "<div class='right'><a href='profile.php?user=".$_SESSION['user']['login']."' title=\"My Profile\" class=\"color1\">" .$_SESSION["user"]["name"] . " " . $_SESSION["user"]["surname"] . "</a></div>";
+	    		echo '<a id="logout" href="./logout.php" class="button buttonCancel bg1 color2 right login_button" style="margin-left:20px">Odhlásiť</a>';
+	    		echo '<a href="./profile_edit.php" class="button bg1 color2 login_button right">Upraviť profil</a>';
 	    	}
 	    	else{
 	    	?>
@@ -177,7 +178,7 @@ function printRegistrationForm(){
 			</div>
 
 			<div id="img_cont" class="right">
-				<img id="img_preview" src="./img/default_profile_image.png" class="shaddow bg4" alt="1.jpg">
+				<label for="input_f"><img id="img_preview" src="./img/default_profile_image.png" class="shaddow bg4" alt="1.jpg"></label>
 				
 				<label class="label bg4 color1 shaddow" for="input_f"><i class="fa fa-image"></i></label>
 			
@@ -189,7 +190,7 @@ function printRegistrationForm(){
 				<script type="text/javascript">
 
 
-				function readURL(input) {
+				function changeImagePreview(input) {
 				    if (input.files && input.files[0]) {
 				        var reader = new FileReader();
 				        reader.onload = function (e) {
@@ -199,9 +200,11 @@ function printRegistrationForm(){
 				    }
 				}
 				$("#input_f").change(function(){
-				    readURL(this);
+				    changeImagePreview(this);
 				});
 				</script>
+				
+
 				<div id="reg_user_errors" class="error"></div>
 				<input name="submit" type="submit" class="button bg4 color1 shaddow" value="Zaregistrovať" style="float:right">	
 			
@@ -212,7 +215,7 @@ function printRegistrationForm(){
 <?php
 }
 
-function PrintNotSigned(){
+function printNotLoggedError(){
 /*
 * vypise chybovu hlasku ak nieje pouzivatel prihlaseny
 */

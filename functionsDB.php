@@ -51,35 +51,33 @@ function userToDB ($db,$login, $passwd, $email, $name, $surname, $bio, $websites
 		)));
 	return $result;
 
-/*
-
-	if ($conn = spoj_s_db()) {
-		
-		$sql = "INSERT INTO `users` 
-			(`id`, `login`, `passwd`, `email`, `name`, `surname`, `bio`, `websites`, `birthdate`, `regdate`, `image`) 
-			VALUES (NULL, '$login', MD5('$passwd'), '$email', '$name', '$surname', '$bio', 
-			'$websites', '$birthdate', '$regdate', 0)";
-
-		if (mysqli_query($conn, $sql)) {
-		    $last_id = mysqli_insert_id($conn); // nacitaj posledne id dopytu
-		    mysqli_close($conn); // ukonci pripojenie k DB
-		    return $last_id; // vrat id prave pridaneho pouzivatela 
-		} 
-		else {
-			// ak sa nepodari vlozenie do DB
-		    mysqli_close($conn); 
-		    return false;
-		}
-	}
-
-	else{
-		// ak sa nepodari connect na DB
-		die("Connection failed: " . mysqli_connect_error());
-		return false;
-	}*/
 } 
+function getUserProfileImage($db, $userId){
+	$result = $db->users("id",$userId)->select("image")->fetch();
+return $result["image"];
 
-function imageUpload($image, $name, $dir, $maxSize, $owner, $author,/* $album,*/ $describtion, $category){
+}
+
+function userBasicUpdateDB($db, $userId, $name, $surname, $bio){
+/*
+ * funkcia zmeni informacie o pouzivatelovi
+ * zmeni:
+ *	-meno
+ *	-priezvisko
+ *	-bio
+ *
+ * vrati zmeneny 
+*/
+
+	return $db->users()->where("id",$userId)->update(array(
+		"name"    =>$name,
+		"surname" =>$surname,
+		"bio"     =>$bio
+		));
+}
+
+
+function imageUpload($db, $image, $name, $dir, $maxSize, $owner, $author,/* $album,*/ $describtion, $category){
 	/*
 	* funkcia sluzi na ulozenie obrazka na server a vlozenie informacii o nom do DB
 	* ak sa nepodari vlozit obrazok do DB vrat false
@@ -108,8 +106,12 @@ function imageUpload($image, $name, $dir, $maxSize, $owner, $author,/* $album,*/
 	if (move_uploaded_file($image["tmp_name"], $targetFile)) {
 		$thumb = createThumbnail($dir, $filename, $imageFileType, 300);
 
-		// vloz do DB
-		imageToDB($name, $targetFile, $owner, $author, $imageFileType, $thumb, $image["size"], /*$album, */$describtion, $category);
+		// vloz do DB, ak sa nepodari vlozit tak vymaz thum a original
+		if(!imageToDB($db, $name, $targetFile, $owner, $author, $imageFileType, $thumb, $image["size"], /*$album, */$describtion, $category)){
+			unlink($targetFile);
+			unlink($thumb);
+			return false;
+		}
 
 		// vrat cestu k suboru na serveri 
 		return $targetFile;
@@ -122,7 +124,7 @@ function imageUpload($image, $name, $dir, $maxSize, $owner, $author,/* $album,*/
 }
 
 
-function imageToDB($name, $path, $owner, $author, $type, $thumb, $size,  /*$album,*/ $describtion, $category){
+function imageToDB($db,$name, $path, $owner, $author, $type, $thumb, $size,  /*$album,*/ $describtion, $category){
 	/*
 	* funkcia na vlozenie informacii o obrazku do DB 
 	* ak sa nepodari connect vrat false
@@ -130,28 +132,24 @@ function imageToDB($name, $path, $owner, $author, $type, $thumb, $size,  /*$albu
 	* ak sa podari vlozit vrat id prave nahratej polozky
 	* 
 	*/
-	if ($conn = spoj_s_db()) {
-		$date = actualDate();
 
-		$sql = "INSERT INTO `uploads`
-		(`id`, `name`, `path`, `thumb`, `owner`, `author`, `date`, `type`, `size`, `describtion`, `category`, `likes`, `downloads`, `comments`)
-		VALUES (NULL, '$name', '$path', '$thumb', '$owner', '$author', '$date', '$type', '$size', '$describtion', '$category', '0', '0', '0')";
-		
-		if (mysqli_query($conn, $sql)) {
-		    $last_id = mysqli_insert_id($conn);
-		    mysqli_close($conn);
-		    return $last_id;
-		} 
-		else {
-		    mysqli_close($conn);
-		    return false;
-		}
-	}
+	$result = $db->uploads()->insert(array(
+		"name"        => $name,
+		"path"        => $path, 
+		"thumb"       => $thumb, 
+		"owner"       => $owner, 
+		"author"      => $author, 
+		"date"        => actualDate(), 
+		"type"        => $type, 
+		"size"        => $size, 
+		"describtion" => $describtion, 
+		"category"    => $category, 
+		"likes"       => 0, 
+		"downloads"   => 0, 
+		"comments"    => 0
+		));
+	return $result;
 
-	else{
-		die("Connection failed: " . mysqli_connect_error());
-		return false;
-	}
 }
 
 function createThumbnail($img_dir, $filename, $filetype, $final_width_of_image) {
@@ -197,7 +195,7 @@ function createThumbnail($img_dir, $filename, $filetype, $final_width_of_image) 
     return  $thumbs_dir . $filename ;
 
 }
-function albumToDb($author, $name, $public, $describtion){
+/*function albumToDb($author, $name, $public, $describtion){
 	if ($conn = spoj_s_db()) {
 		$date = actualDate();
 		$sql = "INSERT INTO `albums`
@@ -219,27 +217,10 @@ function albumToDb($author, $name, $public, $describtion){
 		return false;
 	}
 }
+*/
 
-
-function userProfileImageChange($userId, $image){
-	if ($conn = spoj_s_db()) {
-		$sql = "UPDATE  `pixel4you`.`users` SET  `image` =  '$image' WHERE  `users`.`id` = '$userId'";
-
-		if (mysqli_query($conn, $sql)) {
-		    $last_id = mysqli_insert_id($conn);
-		    mysqli_close($conn);
-		    return $last_id;
-		} 
-		else {
-		    mysqli_close($conn);
-		    return false;
-		}
-	}
-
-	else{
-		die("Connection failed: " . mysqli_connect_error());
-		return false;
-	}
+function userProfileImageChange($db,$userId, $image){
+	return $db->users("id", $userId)->update(array("image" => $image));
 }
 
 function printAlbumsOptions($userId)
@@ -325,7 +306,6 @@ function printCategoryOptions($db){
 	* vypise zoznam kategorii ako options
 	* 
 	*/	
-	include_once "./connect.inc.php";
 	foreach ($db->category() as $opt) {
 		echo "<option value='" . $opt['id'] . "'";
 		if ($opt['id'] == 1) { echo "selected";}
@@ -342,11 +322,8 @@ function getUserData($db,$login){
 	*/ 
 
 	$user = $db->users()->where("login",$login)->fetch();
-
-	$userInfo = iterator_to_array($user);
-
-
-	return $userInfo;
+	$res = iterator_to_array($user);
+	return $res;
 }
 
 function getUploads($db){
@@ -374,7 +351,16 @@ function getUploads($db){
 	}
 	print json_encode($res);
 }
+
+
+
 function printCategories($db,$columns){
+	/*
+	* 
+	* funkcia vypise kategorie pre dropdown
+	* 
+	* 
+	*/
 	$cat = $db->category()->order("name ASC")->select("id", "name");
 	$i=0;
 	$newcol = (int) ($cat->count()/$columns + 0.5) ;
