@@ -1,5 +1,5 @@
 <?php
-include ("functions.php");
+include ("/.functions.php");
 head("Kontakt Pixel4You");
 print_header("kontakt");
 ?>

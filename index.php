@@ -1,7 +1,7 @@
 <?php
 include_once "./connect.inc.php";
-include ("functions.php");
-include ("functionsDB.php");
+include ("./functions.php");
+include ("./functionsDB.php");
 
 head("Pixel4You");
 print_header($db,"index");

@@ -1,16 +1,18 @@
 <?php
 include_once "./connect.inc.php";
-include ("functions.php");
-include ("functionsDB.php");
+include ("./functions.php");
+include ("./functionsDB.php");
 head("Profil Pixel4You");
 print_header($db,"profile");
 
 ?>
 
-<script>var myImages = 	<?php getUploads($db);	?>;</script>
+<script>
+var myImages = 	<?php getUploads($db);	?>;
+</script>
 
 <section>
-	<div class="container">
+	<div class="container flex">
 		<?php
 
 		
@@ -25,7 +27,7 @@ print_header($db,"profile");
 		if(isset($userInfo)){
 		?>
 
-		<div class="user_info_container bg4 color1 shaddow">
+		<div class="user_info_container bg4 color1 shaddow left">
 			<div class="user_info  ">
 				<div class="user_info_image">
 					<img src="<?php echo $userInfo["image"]?>">
@@ -53,16 +55,14 @@ print_header($db,"profile");
 				</div>
 			</div>
 		</div>
+		<div class="user_image_container right">
 
 
-
-		<script>
-
-			printImageMaxContainer();
-			printMiniatures("20%", "180px");
-		</script>
-		
-
+			<script>
+				printImageMaxContainer();
+				printMiniatures("31.333333%", "180px");
+			</script>
+		</div>
 		<?php
 		}
 		else printNotSigned();

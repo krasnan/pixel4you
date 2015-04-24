@@ -14,16 +14,15 @@ function head($title){
 <link type="text/css" href="./css.css" rel="stylesheet" >
 <link type="text/css" href="font-awesome.min.css" rel="stylesheet">
 
-
+<script src="./jquery-2.1.3.min.js" ></script>
+<script src="./gallery.js"></script>
 
 <title><?php echo $title;?></title>
 </head>
 
 <body class="bg6">
 
-<script src="jquery-2.1.3.min.js" ></script>
-<script src="./functionsJS.js"></script>
-<script src="./gallery.js"></script>
+
 
 <?php
 session_start();
@@ -87,6 +86,8 @@ function print_footer() {
 	</div>
 </footer>
 </body>
+<script src="./functionsJS.js"></script>
+
 </html>
 
 <?php

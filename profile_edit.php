@@ -1,7 +1,7 @@
 <?php
 include_once "./connect.inc.php";
-include ("functions.php");
-include ("functionsDB.php");
+include ("./functions.php");
+include ("./functionsDB.php");
 head("Pixel4You-rp1");
 header('Content-type: charset=utf-8');
 print_header($db,"register");
@@ -39,17 +39,6 @@ print_header($db,"register");
 
 
 				<script type="text/javascript">
-
-
-				function changeImagePreview(input) {
-				    if (input.files && input.files[0]) {
-				        var reader = new FileReader();
-				        reader.onload = function (e) {
-				            $('#img_preview').attr('src', e.target.result);
-				    	}
-				        reader.readAsDataURL(input.files[0]);
-				    }
-				}
 				$("#input_f").change(function(){
 				    changeImagePreview(this);
 				});
@@ -62,34 +51,8 @@ print_header($db,"register");
 				<a href="./profile.php" class="button buttonCancel left bg4 color1 shaddow">Zrušiť</a>
 
 
-<script type="text/javascript" src="./validations.js"></script>
-<script type="text/javascript">
-	$("#ajaxForm").submit(function(event){
- 
-  	//vypne defaultne spravanie submitu
-	event.preventDefault();	 
-	//zoberie vsetky data z formulara
-	var formData = new FormData($(this)[0]);
+			<script type="text/javascript" src="./validations.js"></script>
 
-	$.ajax({
-    	url: $(this).attr("action"),
-	    type: $(this).attr("method"),
-	    data: formData,
-	    async: false,
-	    cache: false,
-	    contentType: false,
-	    processData: false,
-	    success: function (returndata) {
-      		$("#ajaxResult").html(returndata);
-    	},
-    	error: function(returndata){
-    		$("#ajaxResult").html(returndata);
-    	}
-  });
- 
-  return false;
-});
-</script>
 
 			</div>
 

@@ -1,8 +1,17 @@
+.flex{
+	display: flex;
+}
+
 .user_info_container{
-	width: 31%;
-	float: left;
-	margin: 1%;
+
+	width: 30%;
+	margin-right: 2%;
 	min-height: 100vh;
+}
+
+.user_image_container{
+	width: 68%;
+
 }
 .user_info_image{
 	min-height: 240px;

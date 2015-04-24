@@ -1,5 +1,5 @@
 <?php
-include("functionsDB.php");
+include("./functionsDB.php");
 include_once "./connect.inc.php";
 $func = $_POST["func"];
 

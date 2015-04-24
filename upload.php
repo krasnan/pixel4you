@@ -21,24 +21,18 @@ print_header($db,"upload");
 	if(isset($_SESSION["user"])){
 	?>
 
-		<div class="ressult container"><?php if (isset($_GET['u'])) {
-			echo "Súbor s názvom '". $_GET['u'] . "' bol uložený.";
-			}?>
-		</div>
+		<div id="ajaxResult" class="centered"></div>
 
 
-		<form action="upload_file.php" id="form" class="form" method="POST" enctype="multipart/form-data">
+		<form action="upload_file.php" id="ajaxFormReset" class="form" method="POST" enctype="multipart/form-data">
 
 			<div id="img_cont" class="left">
-				<label for="input_f"><img id="img_preview" src="./img/default_profile_image.png" class="shaddow bg4" alt="1.jpg"></label>
+				<label for="input_f"><img id="img_preview" src="./img/default_profile_image.png" class="shaddow bg4" name="Klikni pre pridanie fotky"></label>
 				
 				<label class="label bg4 color1 shaddow" for="input_f"><i class="fa fa-image"></i></label>
 			
-				<input id="input_f" name="input_f" type="file" accept="image/*" required/>
-				<label class="input button shaddow bg1" for="input_f">Vyber fotku</label>
-
-
-
+				<input id="input_f" name="input_f" type="file" accept="image/*" />
+				<label class="input button shaddow bg1" for="input_f">Vyberte obrázok</label>
 			</div>
 
 
@@ -50,20 +44,6 @@ print_header($db,"upload");
 				<label class="label bg4 color1 shaddow" for="describtion" style="height: 100px; line-height:100px;"><i class="fa fa-info"></i>&nbsp Popis</label>
 				<textarea class="input shaddow" name="describtion" id="describtion" placeholder="Popis fotky..." ></textarea>
 				
-				<!--
-
-				<label class="label bg4 color1 shaddow" for="albumSelect"><i class="fa fa-toggle-down"></i>&nbsp Album</label>
-				<select class="select shaddow" id="albumSelect" required>
-					<option id="selectAlbum_def" selected></option>
-					<?php
-					printAlbumsOptions($_SESSION["userId"]);
-					?>
-				</select>
-
-				<label class="label bg4 color1 shaddow" for="album"><i class="fa fa-plus"></i>&nbsp Album</label>
-				<input class="input shaddow" type="text" name="album" id="album" placeholder="Zadaj názov nového albumu...">
-				
--->
 
 				<label class="label bg4 color1 shaddow" for="selectCategory"><i class="fa fa-toggle-down"></i>&nbsp Kategória</label>
 				<select class="select shaddow" id="selectCategory" name="category" required>
@@ -78,25 +58,14 @@ print_header($db,"upload");
 				$("#album").keyup(function(){$("#selectAlbum_def").html($(this).val());});
 				</script>
 
-
-
 				<script type="text/javascript">
-
-
-				function readURL(input) {
-				    if (input.files && input.files[0]) {
-				        var reader = new FileReader();
-				        reader.onload = function (e) {
-				            $('#img_preview').attr('src', e.target.result);
-				        	$("#name").attr('value', input["value"].replace(/^.*[\\\/]/, '').split(".")[0]);
-				        }
-				        reader.readAsDataURL(input.files[0]);
-				    }
-				}
 				$("#input_f").change(function(){
-				    readURL(this);
+				    changeImagePreview(this);
 				});
 				</script>
+
+
+
 				
 
 

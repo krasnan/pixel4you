@@ -1,5 +1,5 @@
 <?php
-include("functionsDB.php");
+include("./functionsDB.php");
 if ($conn = spoj_s_db()) {
 	$data = mysql_real_escape_string(trim(strtolower($_POST['data'])));
 	$table = trim($_POST["table"]);

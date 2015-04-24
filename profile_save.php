@@ -1,5 +1,5 @@
 <?php
-include ("functionsDB.php");
+include ("./functionsDB.php");
 include_once "./connect.inc.php";
 session_start();
 
