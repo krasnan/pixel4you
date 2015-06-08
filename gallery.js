@@ -8,6 +8,7 @@ function showMaximized(index){
     $('#image_max_download').attr("href", myImages[_index].path);
     $("#image_max_like").attr("onclick", "likeImage("+myImages[_index].id+")");
     window.history.pushState({},myImages[_index].name,urlAdd("image",myImages[_index].id));
+    getImageComments(myImages[_index].id);
 
   }
 
@@ -48,6 +49,8 @@ function galeryExit(){
     	$("#img_actual").fadeIn(500);
     	$("#image_max_like").attr("onclick", "likeImage("+myImages[_index].id+")");
     });
+    getImageComments(myImages[_index].id);
+
 }
 
 function galeryBack(){
@@ -64,7 +67,11 @@ function galeryBack(){
     	$("#img_actual").fadeIn(500);
     	$("#image_max_like").attr("onclick", "likeImage("+myImages[_index].id+")");
     });
+    getImageComments(myImages[_index].id);
+
 }
+
+
 
 function galerySlideshowPlay(){
 	$('#image_max_slideshow').replaceWith('<a id="image_max_slideshow" title="Pause Slideshow" onclick="galerySlideshowStop();"><i class="fa fa-pause"></i></a>');
@@ -93,7 +100,7 @@ function printMiniatures(width, height){
 				<a onclick="" title="Open image" class="image_min_name color1"><i class="fa fa-tag"></i> '+ myImages[i].name +'</a> \
 				<div title="Maximize image" class="image_min_fullscreen color1" onclick="showMaximized('+ i +')"></div> \
 				<div class="image_min_buttons"> \
-					<a onclick="" title="Comment" class="color1"><i class="fa fa-comment fa-2x"></i><br><div class="image_min_buttons_descr">'+ myImages[i].comments +'</div></a> \
+					<a title="Comment" class="color1"><i class="fa fa-comment fa-2x"></i><br><div class="image_min_buttons_descr">'+ myImages[i].comments +'</div></a> \
 					<a id="download'+ myImages[i].id +'" onclick="downloadImage(' +  myImages[i].id + ')" href="'+ myImages[i].path +'" download title="Download" class="color1"><i class="fa fa-cloud-download fa-2x"></i><br> <div class="image_min_buttons_descr">'+ myImages[i].downloads +'</div></a> \
 					<a id="like'+ myImages[i].id +'" onclick="likeImage(' +  myImages[i].id + ')" title="Like" class="color1"><i class="fa fa-heart fa-2x"></i><br><div class="image_min_buttons_descr">'+ myImages[i].likes +'</div></a> \
 				</div>	\
@@ -105,8 +112,8 @@ function printMiniatures(width, height){
 function printImageMaxContainer() {
 	document.write(' \
 		<div id="image_max_container"> \
-            <div id="image_max" class="shaddow image_max"> \
-                <div id="image_container">\
+            <div id="image_max" class="shaddow image_max "> \
+                <div id="image_container" >\
                 </div>  \
                 <div id="image_max_top_bar" class="hidden"> \
                         <a id="image_max_fullscreen" title="Fulscreen Mode" onclick="showFullscreen()"><i class="fa fa-arrows-alt fa"></i></a> \
@@ -121,9 +128,20 @@ function printImageMaxContainer() {
                     <div id="image_info"> \
                     </div> \
                 </div>  \
+               	<div class="comments_container color1">\
+                    <div id="comments"></div>\
+                    <div id="ajaxResult"></div>\
+                    <form id="ajaxForm" class="comment_form right" action="./setcomment.php" method="post">\
+                        <input id="image_id" name="image_id" class="hidden" type="text">\
+                        <textarea class="input left" id="comment_text" name="comment_text"required placeholder="Zadajte text komentára..."></textarea>\
+                        <input name="submit" type="submit" class="button bg4 color1 shaddow right" value="Nahrať" style="float:right">\
+                    </form>\
+                </div> \
             </div> \
         </div>');
 }
+
+
 
 
 function likeImage(id){
@@ -152,4 +170,19 @@ function downloadImage(id){
 		error: function (){alert("error");}
 		
 	});
+}
+
+function getImageComments(image_id){
+    $("#image_id").val(image_id);
+    $("#ajaxResult").html("");
+    $("#comment_text").val("");
+    $.ajax({
+        url: "./functionsAjax.php",
+        type: "post",
+        data: {func: "printComments", image_id:image_id},
+        success: function(result){
+            $("#comments").html(result);
+        },
+        error: function(){alert("error");}
+    });
 }

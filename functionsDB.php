@@ -7,7 +7,47 @@ $dbname = "pixel4you";
 
 
 
+/******************************* comments ***********************************/
 
+function setComment($db, $login, $image_id, $text){
+	/*
+	* funkcia na pridanie komentara k obrazku
+	* po uspesnom vlozeni do db vracia id komentaru
+	* po neuspesnom vlozeni vracia false
+	*/
+	$result = $db->comments()->insert(array(
+		"author"   => $login,
+		"image_id" => $image_id,
+		"text"     => $text,
+		"date"     => date('Y-m-d H:i:s')
+		));
+	return $result;
+}
+
+function getComments($db, $image_id){
+	/*
+	* 
+	* funkcia vracia vsetky komentare k danemu ID obrazka
+	* vracia pole asociativnych poli
+	*
+	*/
+	$result = $db->comments()->where("image_id",$image_id)->order("date ASC");
+	/*foreach($result as $row) {    
+		$res[] = iterator_to_array($row);   
+	}
+	return $res;*/
+	return $result;
+}
+function getComment($db, $id){
+	/*
+	* 
+	* funkcia vracia komentar s danym ID
+	* vracia pole asociativnych poli
+	*
+	*/
+	$result = $db->comments("id",$id)->fetch();
+	return $result;
+}
 
 
 
@@ -188,8 +228,7 @@ function imageToDB($db,$name, $path, $owner, $author, $type, $thumb, $size,  /*$
 		"describtion" => $describtion, 
 		"category"    => $category, 
 		"likes"       => 0, 
-		"downloads"   => 0, 
-		"comments"    => 0
+		"downloads"   => 0
 		));
 	return $result;
 
@@ -284,6 +323,7 @@ function getUploads($db){
 	/*if (isset($_GET["sort"])){
 		$uploads = $uploads->order();
 	}*/
+	//$uploads = $uploads->select('uploads.id,name,path,thumb,owner,author,describtion,category,likes,downloads, COUNT() AS comments')->group('uploads.id');
 	foreach($uploads as $row) {    
 		$res[] = iterator_to_array($row);   
 	}
